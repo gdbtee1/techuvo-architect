@@ -1,0 +1,554 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap');
+
+.lux-site {
+  min-height: 100dvh;
+  background: #f8f7f2;
+  color: #26302d;
+  font-family: "DM Sans", sans-serif;
+}
+
+.lux-site * {
+  box-sizing: border-box;
+}
+
+.lux-nav {
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 0 clamp(24px, 5vw, 100px);
+  border-bottom: 1px solid #e7e7df;
+}
+
+.lux-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  color: #28342e;
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: .18em;
+  font-weight: 700;
+}
+
+.lux-brand-symbol {
+  color: #688775;
+  font-size: 31px;
+}
+
+.lux-nav-links {
+  display: flex;
+  gap: clamp(18px, 3vw, 46px);
+}
+
+.lux-nav-links a {
+  color: #67726a;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.lux-nav-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  padding: 13px 19px;
+  border: 1px solid #b9c7bc;
+  text-decoration: none;
+  color: #263c31;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.lux-hero {
+  min-height: min(780px, calc(100dvh - 90px));
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  padding: 70px clamp(24px, 5vw, 100px);
+  gap: 25px;
+  overflow: hidden;
+}
+
+.lux-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 620px;
+}
+
+.lux-eyebrow {
+  font-size: 11px;
+  letter-spacing: .23em;
+  color: #79917d;
+  font-weight: 700;
+  margin-bottom: 28px;
+}
+
+.lux-hero h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(52px, 5vw, 85px);
+  letter-spacing: -.055em;
+  line-height: 1.09;
+  margin: 0;
+}
+
+.lux-hero h1 em {
+  display: block;
+  font-weight: 500;
+  color: #6e8e76;
+}
+
+.lux-hero-description {
+  max-width: 470px;
+  color: #737d74;
+  line-height: 1.9;
+  font-size: 15px;
+  margin: 30px 0 35px;
+}
+
+.lux-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.lux-hero-actions a {
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 0 20px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.lux-primary-cta {
+  background: #304d3d;
+  color: white;
+}
+
+.lux-secondary-cta {
+  border: 1px solid #c6cfc3;
+  color: #43594a;
+}
+
+.lux-hero-categories {
+  margin-top: 48px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  color: #79877a;
+  font-size: 11px;
+  letter-spacing: .07em;
+}
+
+.lux-hero-categories i {
+  width: 3px;
+  height: 3px;
+  background: #91a48e;
+  border-radius: 50%;
+}
+
+.lux-hero-visual {
+  min-width: 0;
+  height: min(590px, 65vw);
+  position: relative;
+}
+
+.lux-scene-placeholder {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    #edf3e8 0%,
+    #e6ede2 35%,
+    #f3f4ea 75%,
+    #f8f7f2 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+  padding: 25px;
+}
+
+.lux-scene-placeholder span {
+  font-size: 10px;
+  letter-spacing: .2em;
+  color: #708973;
+}
+
+.lux-scene-placeholder strong {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(20px, 2vw, 31px);
+  font-weight: 500;
+  color: #567360;
+}
+
+.lux-scene-placeholder p {
+  font-size: 12px;
+  color: #89988a;
+}
+
+@media (max-width: 900px) {
+  .lux-nav {
+    height: 74px;
+  }
+
+  .lux-nav-links {
+    display: none;
+  }
+
+  .lux-hero {
+    grid-template-columns: 1fr;
+    padding-top: 65px;
+    gap: 22px;
+  }
+
+  .lux-hero-content {
+    max-width: 680px;
+  }
+
+  .lux-hero-visual {
+    height: min(460px, 75vw);
+  }
+}
+
+@media (max-width: 600px) {
+  .lux-nav {
+    padding: 0 18px;
+    height: 68px;
+  }
+
+  .lux-brand {
+    font-size: 9px;
+    letter-spacing: .1em;
+  }
+
+  .lux-nav-action {
+    padding: 10px;
+    font-size: 10px;
+    gap: 5px;
+  }
+
+  .lux-hero {
+    padding: 55px 20px 30px;
+    gap: 24px;
+  }
+
+  .lux-hero h1 {
+    font-size: clamp(43px, 11vw, 62px);
+  }
+
+  .lux-hero-description {
+    font-size: 14px;
+    margin: 25px 0;
+  }
+
+  .lux-hero-actions a {
+    min-height: 49px;
+  }
+
+  .lux-hero-categories {
+    margin-top: 30px;
+    gap: 10px;
+    font-size: 10px;
+  }
+
+  .lux-hero-visual {
+    height: 360px;
+  }
+}
+
+/* IMMERSIVE ARCHITECTURAL HERO */
+
+.lux-immersive-hero {
+  position: relative;
+  min-height: 100svh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  isolation: isolate;
+  background: #f4f5ec;
+}
+
+.lux-immersive-background {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+}
+
+.hero-morph-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.lux-immersive-wash {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(249, 248, 242, .97) 0%,
+    rgba(249, 248, 242, .89) 25%,
+    rgba(249, 248, 242, .44) 52%,
+    rgba(249, 248, 242, .05) 100%
+  );
+}
+
+.lux-nav-overlay {
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(78, 93, 78, .12);
+  background: rgba(249, 248, 242, .62);
+  backdrop-filter: blur(10px);
+}
+
+.lux-immersive-content {
+  width: min(100%, 1570px);
+  margin: auto;
+  padding: 70px clamp(25px, 6vw, 110px);
+  position: relative;
+  z-index: 5;
+}
+
+.lux-immersive-eyebrow {
+  color: #64846b;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  margin-bottom: 25px;
+}
+
+.lux-immersive-headline {
+  max-width: 810px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(54px, 6.2vw, 112px);
+  line-height: 1.06;
+  font-weight: 500;
+  letter-spacing: -.06em;
+  color: #283a31;
+  margin: 0;
+}
+
+.lux-immersive-headline em {
+  color: #668c72;
+  display: block;
+  font-weight: 500;
+}
+
+.lux-immersive-description {
+  max-width: 540px;
+  margin: 28px 0 34px;
+  color: #59695e;
+  font-size: clamp(14px, 1.2vw, 17px);
+  line-height: 1.9;
+}
+
+.lux-immersive-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px;
+}
+
+.lux-immersive-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  min-height: 55px;
+  padding: 0 22px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.lux-active-scene {
+  margin-top: 50px;
+  max-width: 430px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  animation: luxSceneFade .65s ease both;
+}
+
+.lux-active-scene span {
+  font-size: 10px;
+  letter-spacing: .19em;
+  color: #6c8c75;
+  font-weight: 700;
+}
+
+.lux-active-scene strong {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(22px, 2vw, 30px);
+  font-weight: 500;
+  color: #31453a;
+}
+
+.lux-active-scene p {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #718176;
+  margin: 0;
+}
+
+@keyframes luxSceneFade {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.lux-scene-navigation {
+  position: absolute;
+  right: clamp(20px, 5vw, 100px);
+  bottom: 85px;
+  z-index: 8;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.lux-scene-navigation button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 0;
+  border-left: 2px solid #b5c7b8;
+  background: rgba(249, 248, 242, .8);
+  color: #64786b;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  padding: 11px 16px;
+  backdrop-filter: blur(8px);
+}
+
+.lux-scene-navigation button.active {
+  border-left-color: #355c44;
+  color: #234b34;
+  background: rgba(255, 255, 255, .96);
+}
+
+.lux-scene-navigation button span {
+  color: #8ca497;
+  font-size: 9px;
+}
+
+.lux-immersive-bottom {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  padding: 16px clamp(25px, 6vw, 110px);
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 1px solid rgba(97, 117, 101, .15);
+  color: #75877b;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .13em;
+}
+
+@media (max-width: 900px) {
+  .lux-immersive-wash {
+    background: linear-gradient(
+      180deg,
+      rgba(249, 248, 242, .82) 0%,
+      rgba(249, 248, 242, .72) 50%,
+      rgba(249, 248, 242, .35) 100%
+    );
+  }
+
+  .lux-immersive-content {
+    padding: 70px 25px 190px;
+  }
+
+  .lux-immersive-headline {
+    font-size: clamp(49px, 8vw, 78px);
+  }
+
+  .lux-scene-navigation {
+    left: 25px;
+    right: auto;
+    bottom: 67px;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .lux-scene-navigation button {
+    padding: 9px;
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .lux-immersive-hero {
+    min-height: 100dvh;
+  }
+
+  .lux-immersive-content {
+    padding: 55px 20px 180px;
+  }
+
+  .lux-immersive-headline {
+    font-size: clamp(43px, 11vw, 60px);
+  }
+
+  .lux-immersive-description {
+    max-width: 350px;
+    font-size: 13px;
+    margin: 22px 0 26px;
+  }
+
+  .lux-immersive-actions a {
+    min-height: 48px;
+    padding: 0 15px;
+    font-size: 11px;
+  }
+
+  .lux-active-scene {
+    margin-top: 30px;
+  }
+
+  .lux-active-scene p {
+    font-size: 11px;
+  }
+
+  .lux-scene-navigation {
+    left: 15px;
+    bottom: 64px;
+    gap: 3px;
+  }
+
+  .lux-scene-navigation button {
+    font-size: 7px;
+    padding: 8px 7px;
+    gap: 5px;
+  }
+
+  .lux-immersive-bottom {
+    padding: 12px 15px;
+    font-size: 7px;
+  }
+
+  .lux-immersive-bottom span:last-child {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lux-active-scene {
+    animation: none;
+  }
+}

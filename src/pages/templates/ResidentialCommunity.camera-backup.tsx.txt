@@ -1,0 +1,355 @@
+import { Suspense, useEffect, useRef, useState } from "react";
+import { Canvas, useThree } from "@react-three/fiber";
+import { OrbitControls, useGLTF } from "@react-three/drei";
+import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
+import * as THREE from "three";
+import { Link } from "react-router-dom";
+import {
+  ArrowLeft, Building2, Eye, EyeOff,
+  House, Layers3, RotateCcw, Trees
+} from "lucide-react";
+import "./residential-community.css";
+
+const BASE = "/templates/residential-community/";
+
+type PackId = "house" | "homes" | "environment";
+type View = "3d" | "top" | "front";
+
+const urls: Record<PackId, string> = {
+  house: BASE + "residential-house.glb",
+  homes: BASE + "community-buildings.glb",
+  environment: BASE + "community-environment.glb",
+};
+
+function findBuildingName(object: THREE.Object3D): string | null {
+  let current: THREE.Object3D | null = object;
+
+  while (current) {
+    const match = current.name.match(/COMMUNITY_L3_H(\d+)_/);
+    if (match) return `Residence ${Number(match[1]) + 1}`;
+
+    if (/^(ARCH_|FURN_|KIT_|BED_|BATH_|ROOF_|ENTRANCE_|FACADE_)/.test(
+      current.name
+    )) {
+      return "Original Residential House";
+    }
+
+    current = current.parent;
+  }
+
+  return null;
+}
+
+function Asset({
+  id,
+  onLoaded,
+  onSelect
+}: {
+  id: PackId;
+  onLoaded: (id: PackId, box: THREE.Box3) => void;
+  onSelect: (name: string) => void;
+}) {
+  const { scene } = useGLTF(urls[id]);
+
+  useEffect(() => {
+    scene.updateMatrixWorld(true);
+    onLoaded(id, new THREE.Box3().setFromObject(scene));
+  }, [scene, id, onLoaded]);
+
+  return (
+    <primitive
+      object={scene}
+      onClick={(event: any) => {
+        event.stopPropagation();
+        const name = findBuildingName(event.object);
+        if (name) onSelect(name);
+      }}
+    />
+  );
+}
+
+function CommunityCamera({
+  bounds,
+  view,
+  resetToken
+}: {
+  bounds: THREE.Box3 | null;
+  view: View;
+  resetToken: number;
+}) {
+  const { camera, gl, size } = useThree();
+  const control = useRef<OrbitControlsImpl>(null);
+
+  useEffect(() => {
+    if (!bounds || bounds.isEmpty() || !control.current) return;
+
+    const center = bounds.getCenter(new THREE.Vector3());
+    const dimensions = bounds.getSize(new THREE.Vector3());
+
+    const maxDim = Math.max(
+      dimensions.x, dimensions.y, dimensions.z, 10
+    );
+
+    const d = maxDim * 1.45;
+
+    const position =
+      view === "top"
+        ? new THREE.Vector3(center.x, center.y + d, center.z + .01)
+        : view === "front"
+          ? new THREE.Vector3(center.x, center.y + d * .22, center.z + d)
+          : new THREE.Vector3(
+              center.x + d * .75,
+              center.y + d * .58,
+              center.z + d * .85
+            );
+
+    camera.position.copy(position);
+    camera.up.set(0, 1, 0);
+
+    if (camera instanceof THREE.PerspectiveCamera) {
+      camera.near = .1;
+      camera.far = Math.max(3000, d * 8);
+      camera.aspect = size.width / Math.max(size.height, 1);
+      camera.updateProjectionMatrix();
+    }
+
+    control.current.target.copy(center);
+    control.current.update();
+  }, [bounds, view, resetToken, camera, size.width, size.height]);
+
+  useEffect(() => {
+    const canvas = gl.domElement;
+
+    function wheel(event: WheelEvent) {
+      const orbit = control.current;
+      if (!orbit || !orbit.enabled) return;
+
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      const offset = camera.position.clone().sub(orbit.target);
+      const spherical = new THREE.Spherical().setFromVector3(offset);
+
+      if (event.ctrlKey) {
+        spherical.radius = THREE.MathUtils.clamp(
+          spherical.radius * Math.exp(event.deltaY * .008),
+          orbit.minDistance,
+          orbit.maxDistance
+        );
+      } else {
+        spherical.theta -= event.deltaX * .005;
+        spherical.phi = THREE.MathUtils.clamp(
+          spherical.phi - event.deltaY * .005,
+          .02,
+          Math.PI - .02
+        );
+      }
+
+      camera.position.copy(
+        orbit.target.clone().add(
+          new THREE.Vector3().setFromSpherical(spherical)
+        )
+      );
+
+      orbit.update();
+    }
+
+    canvas.addEventListener("wheel", wheel, {
+      passive: false,
+      capture: true
+    });
+
+    return () => canvas.removeEventListener("wheel", wheel, true);
+  }, [camera, gl]);
+
+  return (
+    <OrbitControls
+      ref={control}
+      makeDefault
+      enableDamping
+      dampingFactor={.09}
+      enableZoom={false}
+      enableRotate
+      enablePan
+      minDistance={1}
+      maxDistance={3000}
+      rotateSpeed={.8}
+      screenSpacePanning
+    />
+  );
+}
+
+export default function ResidentialCommunity() {
+  const [visible, setVisible] = useState<Record<PackId, boolean>>({
+    house: true,
+    homes: true,
+    environment: true
+  });
+
+  const [boxes, setBoxes] = useState<Partial<Record<PackId, THREE.Box3>>>({});
+  const [selected, setSelected] = useState("None selected");
+  const [view, setView] = useState<View>("3d");
+  const [resetToken, setResetToken] = useState(0);
+
+  const onLoaded = (
+    id: PackId,
+    box: THREE.Box3
+  ) => {
+    setBoxes(previous => {
+      const old = previous[id];
+      if (old && old.equals(box)) return previous;
+      return { ...previous, [id]: box.clone() };
+    });
+  };
+
+  const bounds = (() => {
+    const combined = new THREE.Box3();
+    let found = false;
+
+    (Object.keys(visible) as PackId[]).forEach(id => {
+      if (visible[id] && boxes[id]) {
+        combined.union(boxes[id]);
+        found = true;
+      }
+    });
+
+    return found ? combined : null;
+  })();
+
+  function toggle(id: PackId) {
+    setVisible(previous => ({
+      ...previous,
+      [id]: !previous[id]
+    }));
+  }
+
+  return (
+    <main className="community-page">
+      <header className="community-header">
+        <Link to="/generator" className="community-back">
+          <ArrowLeft size={17} />
+          Generator
+        </Link>
+        <div className="community-brand">
+          <Building2 size={23} />
+          <div>
+            <strong>Residential Community</strong>
+            <span>Techuvo Architect / Concept Library</span>
+          </div>
+        </div>
+        <span className="community-tag">3D Template Viewer</span>
+      </header>
+
+      <section className="community-layout">
+        <div className="community-viewport">
+          <Canvas
+            shadows
+            camera={{
+              position: [90, 85, 110],
+              fov: 48,
+              near: .1,
+              far: 3000
+            }}
+          >
+            <color attach="background" args={["#e3ebef"]} />
+            <ambientLight intensity={1.25} />
+            <directionalLight
+              position={[40, 90, 35]}
+              intensity={2}
+            />
+            <Suspense fallback={null}>
+              {visible.environment && (
+                <Asset
+                  id="environment"
+                  onLoaded={onLoaded}
+                  onSelect={setSelected}
+                />
+              )}
+              {visible.homes && (
+                <Asset
+                  id="homes"
+                  onLoaded={onLoaded}
+                  onSelect={setSelected}
+                />
+              )}
+              {visible.house && (
+                <Asset
+                  id="house"
+                  onLoaded={onLoaded}
+                  onSelect={setSelected}
+                />
+              )}
+            </Suspense>
+            <CommunityCamera
+              bounds={bounds}
+              view={view}
+              resetToken={resetToken}
+            />
+          </Canvas>
+
+          <div className="community-view-controls">
+            {(["3d", "top", "front"] as View[]).map(v => (
+              <button
+                key={v}
+                className={view === v ? "active" : ""}
+                onClick={() => setView(v)}
+              >
+                {v === "3d" ? "3D" : v === "top" ? "Top" : "Front"}
+              </button>
+            ))}
+            <button onClick={() => setResetToken(n => n + 1)}>
+              <RotateCcw size={15}/>
+              Reset
+            </button>
+          </div>
+
+          <div className="community-hint">
+            Swipe to orbit · Pinch to zoom · Click a house to select
+          </div>
+        </div>
+
+        <aside className="community-sidebar">
+          <div className="community-panel-heading">
+            <Layers3 size={19}/>
+            <h2>Scene Layers</h2>
+          </div>
+
+          <p>Toggle the imported Blender asset packs.</p>
+
+          {([
+            ["house", "Original furnished house", House],
+            ["homes", "Eight unique residences", Building2],
+            ["environment", "Neighborhood and terrain", Trees]
+          ] as const).map(([id, label, Icon]) => (
+            <button
+              key={id}
+              className="community-layer"
+              onClick={() => toggle(id)}
+            >
+              <Icon size={18}/>
+              <span>{label}</span>
+              {visible[id]
+                ? <Eye size={16}/>
+                : <EyeOff size={16}/>}
+            </button>
+          ))}
+
+          <div className="community-selection">
+            <span>SELECTED PROPERTY</span>
+            <strong>{selected}</strong>
+            <small>
+              Preview and selection only. Editable floor plans
+              will connect through the parametric engine.
+            </small>
+          </div>
+
+          <div className="community-footer-note">
+            RES-COMMUNITY-001
+            <br/>
+            Concept architectural visualization
+          </div>
+        </aside>
+      </section>
+    </main>
+  );
+}

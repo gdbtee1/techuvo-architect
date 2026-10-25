@@ -1,0 +1,357 @@
+.building-generator {
+  min-height: 100vh;
+  background: #eef1f3;
+  color: #273744;
+  font-family: Inter, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+
+.building-generator * {
+  box-sizing: border-box;
+}
+
+.generator-header {
+  height: 74px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  padding: 0 28px;
+  background: #fff;
+  border-bottom: 1px solid #e1e7eb;
+}
+
+.generator-back {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: #526777;
+  text-decoration: none;
+}
+
+.generator-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.generator-brand > svg {
+  color: #346bd1;
+}
+
+.generator-brand div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.generator-brand strong {
+  font-size: 14px;
+}
+
+.generator-brand span {
+  font-size: 10px;
+  color: #8b9ca8;
+}
+
+.generator-status {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #74889a;
+}
+
+.generator-toolbar {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 17px 28px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e0e6ea;
+}
+
+.generator-toolbar label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 115px;
+}
+
+.generator-toolbar label span {
+  font-size: 10px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #778a98;
+}
+
+.generator-toolbar select,
+.generator-toolbar input {
+  height: 39px;
+  border: 1px solid #d8e1e6;
+  border-radius: 8px;
+  background: #fff;
+  color: #2a3c4b;
+  padding: 0 11px;
+  font: inherit;
+  font-size: 12px;
+}
+
+.generator-create {
+  height: 39px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border: 0;
+  border-radius: 8px;
+  padding: 0 17px;
+  background: #346bd1;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.generator-main {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 270px;
+  min-height: calc(100vh - 145px);
+}
+
+.generator-viewport {
+  min-height: 620px;
+  position: relative;
+  overflow: hidden;
+  background: #e9eef1;
+}
+
+.generator-viewport canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+.generator-viewport-label {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(255,255,255,.9);
+  border-radius: 10px;
+  padding: 12px 15px;
+  font-size: 11px;
+  font-weight: 650;
+  pointer-events: none;
+}
+
+.generator-floors {
+  padding: 26px 19px;
+  background: #fafbfc;
+  border-left: 1px solid #e0e7eb;
+}
+
+.generator-floors-heading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #355e9e;
+}
+
+.generator-floors-heading strong {
+  font-size: 13px;
+}
+
+.generator-floors p {
+  margin: 14px 0 21px;
+  color: #82919e;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.generator-visibility {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px;
+  border: 1px solid #d9e3ea;
+  border-radius: 9px;
+  background: white;
+  color: #3b5870;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.generator-floor-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.generator-floor-list button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #e0e6eb;
+  border-radius: 10px;
+  background: #fff;
+  color: #526879;
+  text-align: left;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.generator-floor-list button.selected {
+  border-color: #93b2e8;
+  background: #eaf1ff;
+  color: #2c5dac;
+}
+
+.generator-floor-number {
+  font-size: 10px;
+  font-weight: 800;
+  color: #7c9ac2;
+}
+
+@media (max-width: 850px) {
+  .generator-main {
+    grid-template-columns: 1fr;
+  }
+
+  .generator-viewport {
+    min-height: 430px;
+    height: 58vh;
+  }
+
+  .generator-floors {
+    border-left: 0;
+    border-top: 1px solid #e0e7eb;
+  }
+
+  .generator-floor-list {
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .generator-floor-list button {
+    min-width: 140px;
+  }
+}
+
+@media (max-width: 550px) {
+  .generator-header {
+    padding: 0 15px;
+    gap: 15px;
+  }
+
+  .generator-status {
+    display: none;
+  }
+
+  .generator-toolbar {
+    padding: 15px;
+    gap: 10px;
+  }
+
+  .generator-toolbar label {
+    flex: 1 1 115px;
+  }
+
+  .generator-create {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .generator-viewport {
+    min-height: 380px;
+    height: 50vh;
+  }
+}
+
+
+.universal-camera-toolbar {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: flex;
+  gap: 4px;
+  padding: 5px;
+  border: 1px solid rgba(207,220,230,.9);
+  border-radius: 12px;
+  background: rgba(255,255,255,.94);
+  box-shadow: 0 8px 28px rgba(34,57,79,.08);
+  z-index: 3;
+}
+
+.universal-camera-toolbar button {
+  border: 0;
+  background: transparent;
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: #587084;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.universal-camera-toolbar button.active {
+  background: #e7f0ff;
+  color: #2b63bd;
+}
+
+@media (max-width: 550px) {
+  .universal-camera-toolbar {
+    top: auto;
+    bottom: 16px;
+    right: 12px;
+    left: 12px;
+    justify-content: center;
+  }
+
+  .universal-camera-toolbar button {
+    flex: 1;
+    padding: 10px 5px;
+  }
+}
+
+
+.generator-mode-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  padding: 4px;
+  background: #e9eef3;
+  border-radius: 11px;
+}
+
+.generator-mode-switch button {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #688095;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.generator-mode-switch button.active {
+  background: #fff;
+  color: #2c64ba;
+  box-shadow: 0 2px 8px rgba(41,70,95,.08);
+}

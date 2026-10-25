@@ -1,0 +1,337 @@
+import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
+import { useEffect, useMemo, useRef, useState } from "react";
+import * as THREE from "three";
+import { detectPlanarRooms } from "../../engine/geometry/planarRooms";
+import type { PlanarRoom } from "../../engine/geometry/planarRooms";
+import { Canvas, useThree } from "@react-three/fiber";
+import {
+  Grid,
+  OrbitControls,
+} from "@react-three/drei";
+
+import { useArchitectStore } from "../../store/useArchitectStore";
+import type { Wall } from "../../types/architecture";
+
+function ArchitecturalWall({ wall }: { wall: Wall }) {
+  const dx = wall.end.x - wall.start.x;
+  const dy = wall.end.y - wall.start.y;
+
+  const length = Math.hypot(dx, dy);
+
+  if (length < 0.001) return null;
+
+  const centerX = (wall.start.x + wall.end.x) / 2;
+  const centerZ = (wall.start.y + wall.end.y) / 2;
+
+  const rotation = -Math.atan2(dy, dx);
+
+  return (
+    <mesh
+      position={[
+        centerX,
+        wall.height / 2,
+        centerZ,
+      ]}
+      rotation={[0, rotation, 0]}
+      castShadow
+      receiveShadow
+    >
+      <boxGeometry
+        args={[
+          length,
+          wall.height,
+          wall.thickness,
+        ]}
+      />
+
+      <meshStandardMaterial
+        color="#e4ded3"
+        roughness={0.85}
+      />
+    </mesh>
+  );
+}
+
+
+function ArchitecturalFloor({
+  room,
+}: {
+  room: PlanarRoom;
+}) {
+  const geometry = useMemo(() => {
+    const shape = new THREE.Shape();
+
+    room.points.forEach((point, index) => {
+      if (index === 0) {
+        shape.moveTo(point.x, point.y);
+      } else {
+        shape.lineTo(point.x, point.y);
+      }
+    });
+
+    shape.closePath();
+
+    const result = new THREE.ShapeGeometry(shape);
+
+    // ShapeGeometry uses the XY plane.
+    // Rotate geometry into our XZ ground plane.
+    result.rotateX(Math.PI / 2);
+
+    return result;
+  }, [room]);
+
+  return (
+    <mesh
+      geometry={geometry}
+      position={[0, 0.025, 0]}
+      receiveShadow
+    >
+      <meshStandardMaterial
+        color="#d4b99a"
+        roughness={0.9}
+        side={THREE.DoubleSide}
+      />
+    </mesh>
+  );
+}
+
+
+type CameraView = "overview" | "top" | "interior";
+
+function CameraController({
+  view,
+  resetVersion,
+  centerX,
+  centerZ,
+  radius,
+}: {
+  view: CameraView;
+  resetVersion: number;
+  centerX: number;
+  centerZ: number;
+  radius: number;
+}) {
+  const { camera } = useThree();
+  const controls = useRef<OrbitControlsImpl>(null);
+
+  useEffect(() => {
+    const d = Math.max(radius, 4);
+
+    const target = new THREE.Vector3(
+      centerX,
+      0,
+      centerZ
+    );
+
+    if (view === "top") {
+      camera.position.set(
+        centerX,
+        d * 2.2,
+        centerZ + 0.001
+      );
+    } else if (view === "interior") {
+      camera.position.set(
+        centerX + d * 0.15,
+        Math.max(4.5, d * 0.85),
+        centerZ + d * 0.3
+      );
+    } else {
+      camera.position.set(
+        centerX + d * 1.25,
+        d * 1.4,
+        centerZ + d * 1.5
+      );
+    }
+
+    camera.lookAt(target);
+    camera.updateProjectionMatrix();
+
+    if (controls.current) {
+      controls.current.target.copy(target);
+      controls.current.update();
+    }
+  }, [
+    camera,
+    view,
+    resetVersion,
+    centerX,
+    centerZ,
+    radius,
+  ]);
+
+  return (
+    <OrbitControls
+      ref={controls}
+      makeDefault
+      enableDamping
+      minDistance={0.5}
+      maxDistance={200}
+      maxPolarAngle={Math.PI / 2 - 0.01}
+    />
+  );
+}
+
+function ResidentialScene({
+  view,
+  resetVersion,
+}: {
+  view: CameraView;
+  resetVersion: number;
+}) {
+  const walls = useArchitectStore(
+    (state) => state.plan.walls
+  );
+
+  const rooms = useMemo(
+    () => detectPlanarRooms(walls),
+    [walls]
+  );
+
+  const bounds = walls.flatMap((wall) => [
+    wall.start,
+    wall.end,
+  ]);
+
+  const centerX = bounds.length
+    ? (Math.min(...bounds.map((p) => p.x)) +
+        Math.max(...bounds.map((p) => p.x))) / 2
+    : 0;
+
+  const centerZ = bounds.length
+    ? (Math.min(...bounds.map((p) => p.y)) +
+        Math.max(...bounds.map((p) => p.y))) / 2
+    : 0;
+
+  return (
+    <>
+      <color
+        attach="background"
+        args={["#e8eeea"]}
+      />
+
+      <ambientLight intensity={1.5} />
+
+      <directionalLight
+        position={[10, 18, 12]}
+        intensity={2.1}
+        castShadow
+      />
+
+      <CameraController
+        view={view}
+        resetVersion={resetVersion}
+        centerX={centerX}
+        centerZ={centerZ}
+        radius={Math.max(
+          4,
+          bounds.length
+            ? Math.max(
+                Math.max(...bounds.map((p) => p.x)) -
+                  Math.min(...bounds.map((p) => p.x)),
+                Math.max(...bounds.map((p) => p.y)) -
+                  Math.min(...bounds.map((p) => p.y))
+              )
+            : 4
+        )}
+      />
+
+      <Grid
+        position={[0, -0.03, 0]}
+        infiniteGrid
+        cellSize={1}
+        sectionSize={5}
+        cellColor="#b8c9bd"
+        sectionColor="#719982"
+        fadeDistance={100}
+      />
+
+      {rooms.map((room) => (
+        <ArchitecturalFloor
+          key={room.id}
+          room={room}
+        />
+      ))}
+
+      {walls.map((wall) => (
+        <ArchitecturalWall
+          key={wall.id}
+          wall={wall}
+        />
+      ))}
+    </>
+  );
+}
+
+export default function Residential3D() {
+  const [view, setView] = useState<CameraView>("overview");
+
+  const walls = useArchitectStore((state) => state.plan.walls);
+
+  const detectedRooms = useMemo(
+    () => detectPlanarRooms(walls),
+    [walls]
+  );
+  const [resetVersion, setResetVersion] = useState(0);
+
+  function chooseView(next: CameraView) {
+    setView(next);
+    setResetVersion((n) => n + 1);
+  }
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        minHeight: 0,
+        position: "relative",
+        touchAction: "none",
+      }}
+    >
+      <Canvas shadows dpr={[1, 2]}>
+        <ResidentialScene view={view} resetVersion={resetVersion} />
+      </Canvas>
+
+      <div className="room-debug">
+        DETECTED ROOMS: {detectedRooms.length}
+      </div>
+
+      <div className="camera-controls">
+        <button
+          type="button"
+          onClick={() => {
+            chooseView("overview");
+          }}
+        >
+          Overview
+        </button>
+
+        <button
+          type="button"
+          onClick={() => {
+            chooseView("top");
+          }}
+        >
+          Top
+        </button>
+
+        <button
+          type="button"
+          onClick={() => {
+            chooseView("interior");
+          }}
+        >
+          Interior
+        </button>
+
+        <button
+          type="button"
+          onClick={() => {
+            setResetVersion((n) => n + 1);
+          }}
+        >
+          Reset
+        </button>
+      </div>
+    </div>
+  );
+}

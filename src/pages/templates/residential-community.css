@@ -1,0 +1,202 @@
+.community-page {
+  min-height: 100vh;
+  color: #293c4a;
+  background: #edf1f3;
+  font-family: Inter, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+.community-page * { box-sizing: border-box; }
+.community-header {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  gap: 27px;
+  padding: 0 28px;
+  background: #fff;
+  border-bottom: 1px solid #dbe3e8;
+}
+.community-back {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  text-decoration: none;
+  color: #667e90;
+  font-size: 12px;
+}
+.community-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.community-brand > svg { color: #4278d7; }
+.community-brand div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.community-brand strong { font-size: 15px; }
+.community-brand span {
+  font-size: 10px;
+  color: #8c9fac;
+}
+.community-tag {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: #91a1ae;
+}
+.community-layout {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 290px;
+  min-height: calc(100vh - 76px);
+}
+.community-viewport {
+  min-height: 600px;
+  position: relative;
+  overflow: hidden;
+  background: #e3ebef;
+}
+.community-viewport canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  touch-action: none;
+}
+.community-view-controls {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: flex;
+  gap: 4px;
+  padding: 5px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.94);
+  box-shadow: 0 6px 24px #29476318;
+}
+.community-view-controls button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 13px;
+  border: 0;
+  border-radius: 8px;
+  color: #577082;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+}
+.community-view-controls button.active {
+  color: #2d61b8;
+  background: #e8f0ff;
+}
+.community-hint {
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  background: rgba(255,255,255,.88);
+  padding: 11px 14px;
+  border-radius: 9px;
+  font-size: 11px;
+  color: #5f7586;
+  pointer-events: none;
+}
+.community-sidebar {
+  padding: 27px 19px;
+  background: #fafbfd;
+  border-left: 1px solid #dbe4ea;
+}
+.community-panel-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #3566b2;
+}
+.community-panel-heading h2 {
+  margin: 0;
+  font-size: 14px;
+}
+.community-sidebar p {
+  font-size: 11px;
+  line-height: 1.7;
+  color: #8194a3;
+  margin: 14px 0 24px;
+}
+.community-layer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 9px;
+  padding: 15px 12px;
+  background: #fff;
+  color: #465e71;
+  border: 1px solid #e1e8ee;
+  border-radius: 10px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  text-align: left;
+}
+.community-layer span { flex: 1; }
+.community-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin-top: 30px;
+  padding-top: 23px;
+  border-top: 1px solid #dce5eb;
+}
+.community-selection > span {
+  color: #91a0ab;
+  font-size: 10px;
+  letter-spacing: .12em;
+  font-weight: 800;
+}
+.community-selection strong { font-size: 14px; }
+.community-selection small {
+  font-size: 11px;
+  color: #8a9ba6;
+  line-height: 1.65;
+}
+.community-footer-note {
+  margin-top: 35px;
+  font-size: 10px;
+  line-height: 1.8;
+  color: #9baab5;
+}
+@media(max-width:850px) {
+  .community-layout { grid-template-columns: 1fr; }
+  .community-viewport {
+    height: 65vh;
+    min-height: 410px;
+  }
+  .community-sidebar {
+    border-left: 0;
+    border-top: 1px solid #dbe4ea;
+  }
+}
+@media(max-width:550px) {
+  .community-header { padding: 0 14px; gap: 14px; }
+  .community-tag { display: none; }
+  .community-viewport { height: 55vh; }
+  .community-view-controls {
+    top: auto;
+    bottom: 60px;
+    right: 10px;
+    left: 10px;
+    justify-content: center;
+  }
+  .community-view-controls button {
+    flex: 1;
+    justify-content: center;
+  }
+  .community-hint {
+    left: 10px;
+    bottom: 10px;
+    font-size: 10px;
+  }
+}

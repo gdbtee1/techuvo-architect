@@ -1,0 +1,171 @@
+import { useEffect, useMemo, useRef } from "react";
+import { useThree } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
+import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
+import * as THREE from "three";
+
+export type CameraView =
+  | "perspective"
+  | "front"
+  | "side"
+  | "top";
+
+type Props = {
+  width: number;
+  length: number;
+  floors: number;
+  floorHeight: number;
+  selectedFloor: number;
+  view: CameraView;
+  resetToken: number;
+};
+
+export default function UniversalCamera({
+  width,
+  length,
+  floors,
+  floorHeight,
+  selectedFloor,
+  view,
+  resetToken,
+}: Props) {
+  const controls = useRef<OrbitControlsImpl>(null);
+  const { camera, size, gl } = useThree();
+
+  const bounds = useMemo(() => {
+    const height = floors * floorHeight;
+    const radius = Math.sqrt(
+      width * width +
+      length * length +
+      height * height
+    ) / 2;
+
+    return {
+      height,
+      radius,
+      distance: Math.max(radius * 2.8, 16),
+    };
+  }, [width, length, floors, floorHeight]);
+
+  useEffect(() => {
+    const control = controls.current;
+    if (!control) return;
+
+    const targetY =
+      view === "perspective"
+        ? bounds.height / 2
+        : view === "top"
+        ? selectedFloor * floorHeight
+        : bounds.height / 2;
+
+    const target = new THREE.Vector3(0, targetY, 0);
+    const d = bounds.distance;
+
+    let position: THREE.Vector3;
+
+    switch (view) {
+      case "front":
+        position = new THREE.Vector3(0, targetY, d);
+        break;
+
+      case "side":
+        position = new THREE.Vector3(d, targetY, 0);
+        break;
+
+      case "top":
+        position = new THREE.Vector3(0, targetY + d, 0.01);
+        break;
+
+      default:
+        position = new THREE.Vector3(
+          d * 0.75,
+          targetY + d * 0.55,
+          d * 0.8
+        );
+    }
+
+    camera.position.copy(position);
+
+    if (camera instanceof THREE.PerspectiveCamera) {
+      camera.far = Math.max(1000, d * 6);
+      camera.near = 0.1;
+      camera.aspect = size.width / Math.max(size.height, 1);
+      camera.updateProjectionMatrix();
+    }
+
+    control.target.copy(target);
+    control.update();
+  }, [
+    camera,
+    size.width,
+    size.height,
+    bounds,
+    view,
+    selectedFloor,
+    floorHeight,
+    resetToken,
+  ]);
+
+  // MacBook two-finger scrolling rotates the building camera.
+  useEffect(() => {
+    const canvas = gl.domElement;
+
+    function onWheel(event: WheelEvent) {
+      // Preserve trackpad pinch gestures for native zoom.
+      if (event.ctrlKey) return;
+
+      const control = controls.current;
+      if (!control || !control.enabled) return;
+
+      event.preventDefault();
+
+      const offset = camera.position.clone().sub(control.target);
+      const spherical = new THREE.Spherical().setFromVector3(offset);
+
+      const sensitivity = 0.005;
+
+      spherical.theta -= event.deltaX * sensitivity;
+      spherical.phi -= event.deltaY * sensitivity;
+
+      spherical.phi = THREE.MathUtils.clamp(
+        spherical.phi,
+        0.02,
+        Math.PI - 0.02
+      );
+
+      offset.setFromSpherical(spherical);
+      camera.position.copy(control.target.clone().add(offset));
+      camera.lookAt(control.target);
+      control.update();
+    }
+
+    canvas.addEventListener("wheel", onWheel, {
+      passive: false,
+      capture: true,
+    });
+
+    return () => {
+      canvas.removeEventListener("wheel", onWheel, true);
+    };
+  }, [camera, gl]);
+
+  return (
+    <OrbitControls
+      ref={controls}
+      makeDefault
+      enableDamping
+      dampingFactor={0.09}
+      enableRotate
+      enableZoom
+      enablePan
+      rotateSpeed={0.8}
+      zoomSpeed={0.85}
+      panSpeed={0.75}
+      minDistance={1}
+      maxDistance={Math.max(300, bounds.distance * 5)}
+      minPolarAngle={0.01}
+      maxPolarAngle={Math.PI - 0.01}
+      screenSpacePanning
+    />
+  );
+}

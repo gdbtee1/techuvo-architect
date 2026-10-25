@@ -1,0 +1,1519 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  font-family: 'DM Sans', sans-serif;
+  color: #1e2927;
+  background: #f5f6f4;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: .35;
+}
+
+.architect-app {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.architect-header {
+  height: 70px;
+  flex-shrink: 0;
+  background: #fff;
+  border-bottom: 1px solid #e7ebe8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  gap: 20px;
+}
+
+.brand-area,
+.header-actions,
+.header-center,
+.workspace-topbar,
+.view-switcher,
+.history-controls,
+.canvas-top-label,
+.workspace-status,
+.property-row {
+  display: flex;
+  align-items: center;
+}
+
+.brand-area { gap: 15px; }
+
+.brand-mark {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  background: #172e29;
+  color: white;
+  font-family: Manrope, sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.project-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.project-identity strong {
+  font-size: 12px;
+  letter-spacing: .12em;
+}
+
+.project-identity span {
+  color: #82908a;
+  font-size: 12px;
+}
+
+.header-center {
+  gap: 9px;
+  color: #65736c;
+  font-size: 12px;
+}
+
+.project-indicator,
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #5cae87;
+  display: inline-block;
+}
+
+.header-actions { gap: 18px; }
+
+.save-status {
+  font-size: 11px;
+  color: #8b9690;
+}
+
+.header-save,
+.start-drawing {
+  border: 0;
+  background: #183b32;
+  color: white;
+  padding: 12px 17px;
+  display: inline-flex;
+  gap: 9px;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.icon-button {
+  background: none;
+  border: 0;
+  color: #53635b;
+  display: grid;
+  place-items: center;
+}
+
+.back-button,
+.mobile-menu-trigger { display: none; }
+
+.architect-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.desktop-toolbar {
+  width: 76px;
+  flex-shrink: 0;
+  background: #fff;
+  border-right: 1px solid #e6ebe7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 22px 9px;
+  gap: 12px;
+}
+
+.toolbar-caption,
+.eyebrow,
+.property-label {
+  color: #82918a;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .15em;
+}
+
+.toolbar-caption { margin-bottom: 18px; }
+
+.tool-button {
+  width: 46px;
+  height: 46px;
+  border: 0;
+  background: transparent;
+  color: #7b8982;
+  display: grid;
+  place-items: center;
+  transition: background .2s;
+}
+
+.tool-button.active {
+  background: #e5f1e9;
+  color: #176847;
+  border-left: 3px solid #267a55;
+}
+
+.toolbar-divider {
+  width: 32px;
+  height: 1px;
+  background: #e3e9e5;
+  margin: 10px 0;
+}
+
+.design-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: #f9faf8;
+}
+
+.workspace-topbar {
+  height: 65px;
+  padding: 0 24px;
+  justify-content: space-between;
+  border-bottom: 1px solid #e7ebe7;
+  background: #fff;
+  gap: 12px;
+}
+
+.breadcrumb {
+  font-size: 10px;
+  letter-spacing: .14em;
+  font-weight: 700;
+  color: #819089;
+}
+
+.view-switcher {
+  padding: 4px;
+  background: #eff2ef;
+  gap: 3px;
+}
+
+.view-switcher button {
+  border: 0;
+  background: transparent;
+  padding: 9px 15px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #7b8982;
+}
+
+.view-switcher button.selected {
+  background: white;
+  color: #183b32;
+  box-shadow: 0 1px 4px #0000000a;
+}
+
+.history-controls { gap: 14px; }
+
+.history-controls button {
+  border: none;
+  background: none;
+  color: #748078;
+}
+
+.drawing-surface {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background-color: #fafbf9;
+  background-image:
+    linear-gradient(#dce5dd80 1px, transparent 1px),
+    linear-gradient(90deg, #dce5dd80 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.canvas-top-label {
+  position: absolute;
+  top: 24px;
+  left: 28px;
+  color: #76887d;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .13em;
+  gap: 9px;
+}
+
+.empty-state {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 370px;
+  width: calc(100% - 48px);
+  text-align: center;
+}
+
+.empty-symbol {
+  width: 66px;
+  height: 66px;
+  margin: 0 auto 24px;
+  background: #e8f0e9;
+  display: grid;
+  place-items: center;
+  color: #47775c;
+}
+
+.empty-state h1 {
+  font-family: Manrope, sans-serif;
+  font-size: clamp(28px, 4vw, 43px);
+  letter-spacing: -.05em;
+  margin: 12px 0;
+  line-height: 1.15;
+}
+
+.empty-state p {
+  font-size: 13px;
+  color: #7d8c83;
+  line-height: 1.85;
+  margin: 0 0 25px;
+}
+
+.canvas-scale {
+  position: absolute;
+  bottom: 23px;
+  left: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #708077;
+  font-size: 10px;
+}
+
+.scale-line {
+  width: 80px;
+  height: 7px;
+  border: 1px solid #718177;
+  border-top: none;
+}
+
+.workspace-status {
+  height: 39px;
+  flex-shrink: 0;
+  padding: 0 22px;
+  background: #fff;
+  border-top: 1px solid #e7ebe7;
+  gap: 25px;
+  color: #859188;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+
+.properties-panel {
+  width: 290px;
+  flex-shrink: 0;
+  background: white;
+  border-left: 1px solid #e6ebe7;
+  padding: 27px 23px;
+  overflow-y: auto;
+}
+
+.properties-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.properties-heading h2 {
+  font-family: Manrope, sans-serif;
+  font-size: 22px;
+  letter-spacing: -.06em;
+  margin: 7px 0 0;
+}
+
+.properties-close {
+  display: none;
+  border: 0;
+  background: transparent;
+}
+
+.property-section {
+  border-bottom: 1px solid #edf0ed;
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.property-muted {
+  color: #88968d;
+  font-size: 12px;
+}
+
+.property-label { margin-bottom: 7px; }
+
+.property-row {
+  justify-content: space-between;
+  color: #849187;
+  font-size: 12px;
+  gap: 10px;
+}
+
+.property-row strong {
+  color: #273c32;
+  font-weight: 700;
+}
+
+.inspector-note {
+  background: #f4f7f3;
+  padding: 17px;
+  color: #638071;
+}
+
+.inspector-note p {
+  font-size: 12px;
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+.mobile-tool-nav,
+.mobile-menu-overlay {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .properties-panel { display: none; }
+  .properties-panel.mobile-visible {
+    display: block;
+    position: fixed;
+    z-index: 30;
+    right: 0;
+    top: 70px;
+    bottom: 0;
+    box-shadow: -10px 0 40px #00000012;
+  }
+  .properties-close { display: block; }
+  .header-center { display: none; }
+}
+
+@media (max-width: 700px) {
+  .architect-header {
+    height: 59px;
+    padding: 0 15px;
+  }
+
+  .brand-area { gap: 10px; }
+  .brand-mark { width: 32px; height: 32px; }
+  .project-identity strong { font-size: 10px; }
+  .project-identity span { font-size: 10px; }
+  .back-button, .mobile-menu-trigger { display: grid; }
+  .save-status { display: none; }
+  .header-actions { gap: 10px; }
+
+  .header-save {
+    padding: 10px;
+  }
+
+  .header-save span { display: none; }
+  .desktop-toolbar { display: none; }
+
+  .workspace-topbar {
+    height: 55px;
+    padding: 0 12px;
+  }
+
+  .breadcrumb,
+  .history-controls { display: none; }
+
+  .view-switcher {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .view-switcher button {
+    flex: 1;
+    padding: 10px;
+  }
+
+  .canvas-top-label {
+    top: 15px;
+    left: 15px;
+    font-size: 9px;
+  }
+
+  .empty-state p { font-size: 12px; }
+  .empty-state h1 { font-size: 30px; }
+
+  .canvas-scale {
+    bottom: 12px;
+    left: 15px;
+  }
+
+  .workspace-status {
+    padding: 0 13px;
+    gap: 15px;
+    font-size: 9px;
+  }
+
+  .workspace-status span:last-child { display: none; }
+
+  .mobile-tool-nav {
+    display: flex;
+    background: #fff;
+    border-top: 1px solid #e6ebe7;
+    padding: 7px 4px calc(7px + env(safe-area-inset-bottom));
+    justify-content: space-around;
+    flex-shrink: 0;
+  }
+
+  .mobile-tool-nav button {
+    min-width: 0;
+    flex: 1;
+    border: 0;
+    background: none;
+    color: #87948a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    font-size: 9px;
+  }
+
+  .mobile-tool-nav button.active {
+    color: #17734c;
+  }
+
+  .properties-panel.mobile-visible {
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-height: 75dvh;
+    border-radius: 20px 20px 0 0;
+    padding-bottom: calc(25px + env(safe-area-inset-bottom));
+  }
+
+  .mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 28px;
+  }
+
+  .mobile-menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mobile-menu-overlay button {
+    border: 0;
+    background: #f3f6f3;
+    padding: 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+.cad-canvas-actions {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  z-index: 5;
+}
+
+.cad-canvas-actions button {
+  border: 1px solid #dce6de;
+  background: #ffffff;
+  color: #355447;
+  padding: 10px 13px;
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: 0 2px 10px #00000008;
+}
+
+.cad-canvas-actions button:active {
+  background: #e7f1e9;
+}
+
+@media (max-width: 700px) {
+  .cad-canvas-actions {
+    top: auto;
+    bottom: 55px;
+    right: 12px;
+    flex-direction: column;
+  }
+
+  .cad-canvas-actions button {
+    padding: 12px;
+    min-height: 44px;
+  }
+}
+
+/* Architectural 2D / 3D workspace */
+
+.architect-view {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.architect-view-pane {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.architect-view-split .architect-view-pane + .architect-view-pane {
+  border-left: 1px solid #cddbd2;
+}
+
+.viewport3d-label {
+  position: absolute;
+  top: 22px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  color: #23483a;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  pointer-events: none;
+}
+
+.viewport3d-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #1d9b68;
+}
+
+@media (max-width: 700px) {
+  .architect-view-split {
+    flex-direction: column;
+  }
+
+  .architect-view-split .architect-view-pane {
+    flex: 1 1 50%;
+  }
+
+  .architect-view-split .architect-view-pane + .architect-view-pane {
+    border-left: 0;
+    border-top: 1px solid #cddbd2;
+  }
+
+  .viewport3d-label {
+    top: 12px;
+    right: 12px;
+    font-size: 9px;
+  }
+}
+
+.cad-canvas-actions .cad-delete-button {
+  background: #b91c1c;
+  color: #fff;
+  border-color: #b91c1c;
+}
+
+.cad-canvas-actions .cad-delete-button:hover {
+  background: #991b1b;
+}
+
+.mobile-history {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .mobile-history {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 7px 12px;
+    background: #fff;
+    border-top: 1px solid #e6ebe7;
+  }
+
+  .mobile-history button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid #dce6df;
+    background: #f5f8f5;
+    color: #245545;
+    padding: 9px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    min-height: 40px;
+  }
+}
+
+.residential-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  touch-action: none;
+}
+
+.camera-controls {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  display: flex;
+  gap: 5px;
+  padding: 5px;
+  background: rgba(255,255,255,.94);
+  border: 1px solid #d8e3da;
+  box-shadow: 0 5px 24px #00000010;
+}
+
+.camera-controls button {
+  border: 0;
+  background: transparent;
+  color: #60756a;
+  padding: 10px 12px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.camera-controls button.active {
+  background: #174c3c;
+  color: #fff;
+}
+
+@media (max-width: 700px) {
+  .camera-controls {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    justify-content: space-between;
+  }
+
+  .camera-controls button {
+    padding: 12px 8px;
+    font-size: 10px;
+    flex: 1;
+  }
+}
+
+.cad-zoom-indicator {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  z-index: 8;
+  padding: 9px 13px;
+  background: rgba(255,255,255,.94);
+  border: 1px solid #d9e6dd;
+  color: #234f3f;
+  font-size: 12px;
+  font-weight: 800;
+  pointer-events: none;
+}
+
+@media (max-width: 700px) {
+  .cad-zoom-indicator {
+    left: 12px;
+    bottom: 15px;
+    font-size: 11px;
+  }
+}
+
+.room-debug {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
+  background: #173d32;
+  color: #fff;
+  padding: 12px 15px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  pointer-events: none;
+}
+
+@media (max-width: 700px) {
+  .room-debug {
+    bottom: 12px;
+    right: 12px;
+    font-size: 10px;
+    padding: 9px;
+  }
+}
+
+/* ==========================================
+   TECHUVO ARCHITECTURAL STUDIO
+   PROFESSIONAL CAD WORKSPACE — PHASE 1
+   ========================================== */
+
+:root {
+  --cad-ink: #252d33;
+  --cad-toolbar: #263640;
+  --cad-blue: #176eb5;
+  --cad-border: #cbd2d6;
+  --cad-muted: #63747e;
+  --cad-surface: #f2f5f6;
+}
+
+.architect-app {
+  background: #e6ecef;
+  color: var(--cad-ink);
+}
+
+.architect-header {
+  height: 58px;
+  background: #f9fbfc;
+  border-bottom: 1px solid #cbd3d9;
+  padding: 0 18px;
+}
+
+.brand-mark {
+  background: #176eb5;
+  color: white;
+  border-radius: 3px;
+  width: 34px;
+  height: 34px;
+}
+
+.project-identity strong {
+  font-size: 12px;
+  letter-spacing: .09em;
+  color: #1c2f3e;
+}
+
+.project-identity span {
+  color: #637784;
+}
+
+.header-center {
+  color: #344f61;
+  font-weight: 700;
+}
+
+.header-save {
+  background: #176eb5;
+  border-radius: 3px;
+  padding: 10px 15px;
+}
+
+.desktop-toolbar {
+  width: 66px;
+  padding: 16px 7px;
+  gap: 9px;
+  background: var(--cad-toolbar);
+  border-right: 1px solid #1b2b35;
+}
+
+.toolbar-caption {
+  color: #b7cbd7;
+  margin: 0 0 12px;
+}
+
+.tool-button {
+  color: #c3d0d9;
+  width: 48px;
+  height: 46px;
+  border-radius: 3px;
+}
+
+.tool-button:hover {
+  background: #3c5362;
+  color: white;
+}
+
+.tool-button.active {
+  background: #176eb5;
+  color: white;
+  border-left: 0;
+  box-shadow: inset 3px 0 0 #a4daff;
+}
+
+.toolbar-divider {
+  background: #50616b;
+}
+
+.design-main {
+  background: #edf1f3;
+}
+
+.workspace-topbar {
+  height: 53px;
+  background: #f3f6f8;
+  border-bottom: 1px solid var(--cad-border);
+  padding: 0 16px;
+}
+
+.breadcrumb {
+  color: #556977;
+  letter-spacing: .08em;
+  font-size: 10px;
+}
+
+.view-switcher {
+  background: #e1e8ed;
+  border: 1px solid #c5d0d8;
+  border-radius: 3px;
+  padding: 2px;
+}
+
+.view-switcher button {
+  color: #536977;
+  padding: 8px 17px;
+  border-radius: 2px;
+}
+
+.view-switcher button.selected {
+  color: #fff;
+  background: #176eb5;
+  box-shadow: none;
+}
+
+.history-controls button {
+  color: #526a7d;
+}
+
+.drawing-surface {
+  background: #dce5e9;
+  background-image: none;
+}
+
+.architect-view {
+  background: #fff;
+}
+
+.architect-view-pane {
+  background: #f8fafb;
+}
+
+.architect-view-split .architect-view-pane + .architect-view-pane {
+  border-left: 5px solid #bcc8d0;
+}
+
+.canvas-top-label {
+  top: 9px;
+  left: 12px;
+  z-index: 6;
+  background: rgba(255,255,255,.94);
+  border: 1px solid #d0d9dd;
+  padding: 7px 10px;
+  color: #536675;
+  font-size: 9px;
+  pointer-events: none;
+}
+
+.workspace-status {
+  height: 30px;
+  background: #e4eaf0;
+  border-top: 1px solid #bac8d1;
+  color: #516574;
+  font-size: 9px;
+}
+
+.properties-panel {
+  background: #f6f8f9;
+  border-left: 1px solid #c3d0d8;
+  width: 250px;
+  padding: 23px 18px;
+}
+
+.properties-heading h2 {
+  color: #1d3546;
+}
+
+.property-section {
+  border-color: #dce4e9;
+}
+
+.property-row strong {
+  color: #254a64;
+}
+
+.inspector-note {
+  background: #e7eef3;
+  color: #486578;
+  border-left: 3px solid #176eb5;
+}
+
+.camera-controls {
+  background: rgba(250,252,253,.96);
+  border: 1px solid #c6d2da;
+  border-radius: 3px;
+}
+
+.camera-controls button.active {
+  background: #176eb5;
+}
+
+.viewport3d-label {
+  background: rgba(255,255,255,.92);
+  color: #30536a;
+}
+
+.cad-canvas-actions button {
+  border-color: #c9d5dc;
+  color: #31566e;
+  border-radius: 3px;
+}
+
+.cad-zoom-indicator {
+  border-color: #c5d3db;
+  color: #31566e;
+}
+
+@media (max-width: 700px) {
+  .architect-header {
+    height: 59px;
+    padding: 0 12px;
+  }
+
+  .workspace-topbar {
+    height: 53px;
+  }
+
+  .architect-view-split {
+    flex-direction: column;
+  }
+
+  .architect-view-split .architect-view-pane + .architect-view-pane {
+    border-left: 0;
+    border-top: 5px solid #bcc8d0;
+  }
+
+  .mobile-tool-nav {
+    background: #263640;
+    border-top: 1px solid #4d6472;
+  }
+
+  .mobile-tool-nav button {
+    color: #c6d6e0;
+  }
+
+  .mobile-tool-nav button.active {
+    color: #7cc6ff;
+  }
+
+  .mobile-history {
+    background: #edf2f5;
+  }
+
+  .properties-panel.mobile-visible {
+    background: #f6f8f9;
+  }
+}
+
+/* ==========================================
+   SOFTWARE-STYLE CAD RIBBON
+   ========================================== */
+
+.cad-ribbon-shell {
+  background: #ffffff;
+  border-bottom: 1px solid #bfcbd4;
+}
+
+.cad-ribbon-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 10px;
+  background: linear-gradient(to bottom, #eaf2f9 0%, #dce8f3 100%);
+  border-bottom: 1px solid #b9c7d1;
+  min-height: 34px;
+  overflow-x: auto;
+}
+
+.cad-ribbon-tab {
+  border: 0;
+  background: transparent;
+  color: #33536c;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 9px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.cad-ribbon-tab:hover {
+  background: rgba(23, 110, 181, 0.08);
+}
+
+.cad-ribbon-tab-active {
+  background: #ffffff;
+  color: #176eb5;
+  border-left: 1px solid #b9c7d1;
+  border-right: 1px solid #b9c7d1;
+  border-top: 2px solid #176eb5;
+}
+
+.cad-ribbon-body {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  padding: 6px 8px 8px;
+  background: linear-gradient(to bottom, #ffffff 0%, #f2f7fb 100%);
+  overflow-x: auto;
+}
+
+.cad-ribbon-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 180px;
+  padding: 0 10px 0 6px;
+  border-right: 1px solid #ccd6dd;
+}
+
+.cad-ribbon-group:last-child {
+  border-right: 0;
+}
+
+.cad-ribbon-tools {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 68px;
+  padding-bottom: 4px;
+}
+
+.cad-ribbon-tool {
+  width: 68px;
+  min-height: 58px;
+  border: 1px solid transparent;
+  background: linear-gradient(to bottom, #ffffff 0%, #edf4f9 100%);
+  border-radius: 4px;
+  color: #35546a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 6px 4px;
+  text-align: center;
+}
+
+.cad-ribbon-tool:hover {
+  border-color: #99bfe0;
+  background: linear-gradient(to bottom, #ffffff 0%, #dcebfa 100%);
+  color: #176eb5;
+}
+
+.cad-ribbon-tool span {
+  line-height: 1.1;
+}
+
+.cad-ribbon-group-title {
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid #d8e1e7;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #637684;
+}
+
+.workspace-topbar {
+  border-top: 0;
+}
+
+@media (max-width: 900px) {
+  .cad-ribbon-group {
+    min-width: 160px;
+  }
+
+  .cad-ribbon-tool {
+    width: 62px;
+  }
+}
+
+@media (max-width: 700px) {
+  .cad-ribbon-tabs {
+    padding: 0 6px;
+  }
+
+  .cad-ribbon-body {
+    padding: 6px;
+  }
+
+  .cad-ribbon-group {
+    min-width: 150px;
+    padding: 0 8px 0 4px;
+  }
+
+  .cad-ribbon-tool {
+    width: 58px;
+    min-height: 56px;
+    font-size: 9px;
+  }
+}
+
+/* ==========================================
+   CAD DESKTOP REFERENCE — COMPACT LAYOUT
+   ========================================== */
+
+@media (min-width: 701px) {
+  .architect-header {
+    height: 40px;
+    padding: 0 12px;
+  }
+
+  .brand-mark {
+    width: 27px;
+    height: 27px;
+    font-size: 15px;
+  }
+
+  .project-identity strong {
+    font-size: 10px;
+  }
+
+  .project-identity span,
+  .header-center,
+  .save-status {
+    font-size: 10px;
+  }
+
+  .header-save {
+    padding: 7px 11px;
+    font-size: 10px;
+  }
+
+  .desktop-toolbar {
+    width: 42px;
+    padding: 8px 3px;
+    gap: 4px;
+  }
+
+  .toolbar-caption {
+    font-size: 7px;
+    margin-bottom: 7px;
+  }
+
+  .tool-button {
+    width: 35px;
+    height: 35px;
+  }
+
+  .tool-button svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .cad-ribbon-tabs {
+    min-height: 23px;
+    padding: 0 4px;
+  }
+
+  .cad-ribbon-tab {
+    padding: 5px 11px;
+    font-size: 9px;
+    line-height: 1;
+  }
+
+  .cad-ribbon-body {
+    height: 72px;
+    padding: 3px 5px;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .cad-ribbon-group {
+    min-width: auto;
+    padding: 0 7px;
+  }
+
+  .cad-ribbon-tools {
+    flex-wrap: nowrap;
+    gap: 2px;
+    min-height: 46px;
+    padding: 0;
+  }
+
+  .cad-ribbon-tool {
+    width: 49px;
+    min-height: 43px;
+    padding: 2px;
+    font-size: 8px;
+    gap: 3px;
+    border-radius: 0;
+  }
+
+  .cad-ribbon-tool svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .cad-ribbon-group-title {
+    font-size: 8px;
+    margin-top: 0;
+    padding-top: 3px;
+    letter-spacing: 0;
+  }
+
+  .workspace-topbar {
+    height: 34px;
+    padding: 0 10px;
+  }
+
+  .breadcrumb {
+    font-size: 8px;
+  }
+
+  .view-switcher button {
+    padding: 5px 12px;
+    font-size: 9px;
+  }
+
+  .properties-panel {
+    display: none;
+  }
+
+  .properties-panel.mobile-visible {
+    display: block;
+    position: fixed;
+    z-index: 30;
+    right: 0;
+    top: 40px;
+    bottom: 0;
+    width: 290px;
+    box-shadow: -10px 0 35px #0002;
+  }
+
+  .properties-panel.mobile-visible .properties-close {
+    display: block;
+  }
+
+  .workspace-status {
+    height: 23px;
+  }
+
+  .canvas-top-label {
+    top: 5px;
+    left: 7px;
+    padding: 4px 7px;
+    font-size: 8px;
+  }
+
+  .architect-view-split .architect-view-pane +
+  .architect-view-pane {
+    border-left: 2px solid #becbd3;
+  }
+}
+
+
+/* ======================================
+   MOBILE CAD WORKSPACE — PHASE 1
+   ====================================== */
+
+@media (max-width: 700px) {
+  .architect-app {
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .architect-header {
+    height: 52px;
+    padding: 0 10px;
+    gap: 8px;
+  }
+
+  .brand-mark {
+    width: 29px;
+    height: 29px;
+    font-size: 15px;
+  }
+
+  .project-identity strong {
+    font-size: 10px;
+  }
+
+  .project-identity span {
+    max-width: 115px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .cad-ribbon-shell {
+    display: none;
+  }
+
+  .workspace-topbar {
+    height: 46px;
+    flex-shrink: 0;
+    padding: 0 9px;
+  }
+
+  .view-switcher {
+    width: 100%;
+    display: flex;
+  }
+
+  .view-switcher button {
+    min-height: 37px;
+    flex: 1;
+    padding: 8px;
+    font-size: 11px;
+  }
+
+  .design-main {
+    min-height: 0;
+  }
+
+  .drawing-surface {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .architect-view {
+    position: absolute;
+    inset: 0;
+    min-height: 0;
+  }
+
+  .architect-view-split {
+    flex-direction: column;
+  }
+
+  .architect-view-pane {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  .architect-view-split .architect-view-pane {
+    flex: 1 1 50%;
+  }
+
+  .canvas-top-label {
+    top: 7px;
+    left: 8px;
+    font-size: 8px;
+    padding: 5px 7px;
+  }
+
+  .canvas-scale {
+    display: none;
+  }
+
+  .workspace-status {
+    height: 25px;
+    padding: 0 9px;
+    gap: 10px;
+    font-size: 8px;
+  }
+
+  .mobile-history {
+    padding: 5px 9px;
+  }
+
+  .mobile-history button {
+    min-height: 34px;
+    padding: 7px 11px;
+    font-size: 10px;
+  }
+
+  .mobile-tool-nav {
+    padding: 8px 3px
+      calc(8px + env(safe-area-inset-bottom));
+  }
+
+  .mobile-tool-nav button {
+    gap: 3px;
+    min-width: 0;
+  }
+
+  .mobile-tool-nav button svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .mobile-tool-nav button span {
+    font-size: 9px;
+  }
+
+  .camera-controls {
+    left: auto;
+    right: 7px;
+    top: 7px;
+    max-width: calc(100% - 14px);
+    padding: 3px;
+    gap: 2px;
+  }
+
+  .camera-controls button {
+    padding: 8px 6px;
+    font-size: 9px;
+  }
+
+  .cad-canvas-actions {
+    top: auto;
+    bottom: 12px;
+    right: 8px;
+    gap: 5px;
+  }
+
+  .cad-canvas-actions button {
+    min-height: 35px;
+    padding: 8px;
+    font-size: 9px;
+  }
+
+  .room-debug {
+    bottom: 8px;
+    right: 8px;
+    font-size: 8px;
+    padding: 7px;
+  }
+
+  .properties-panel.mobile-visible {
+    z-index: 45;
+  }
+}
+

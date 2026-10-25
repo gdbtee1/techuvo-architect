@@ -1,0 +1,455 @@
+import { Suspense, useEffect, useRef, useState } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Environment, OrbitControls } from "@react-three/drei";
+import * as THREE from "three";
+
+type SceneType = "estate" | "barn" | "farm";
+
+export const heroScenes: SceneType[] = [
+  "estate",
+  "barn",
+  "farm",
+];
+
+function Structure({
+  type,
+}: {
+  type: SceneType;
+}) {
+  const group = useRef<THREE.Group>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    setVisible(true);
+    return () => setVisible(false);
+  }, []);
+
+  useFrame((state, delta) => {
+    if (!group.current) return;
+
+    group.current.rotation.y += delta * 0.07;
+
+    const targetScale = visible ? 1 : 0.85;
+
+    group.current.scale.lerp(
+      new THREE.Vector3(
+        targetScale,
+        targetScale,
+        targetScale
+      ),
+      Math.min(delta * 3, 1)
+    );
+
+    group.current.position.y =
+      Math.sin(state.clock.elapsedTime * 0.7) * 0.06;
+  });
+
+  return (
+    <group ref={group}>
+      {type === "estate" && <LuxuryEstate />}
+      {type === "barn" && <AgriculturalBarn />}
+      {type === "farm" && <VerticalFarm />}
+    </group>
+  );
+}
+
+function Box({
+  position,
+  size,
+  color,
+  metalness = 0,
+  roughness = 0.65,
+}: {
+  position: [number, number, number];
+  size: [number, number, number];
+  color: string;
+  metalness?: number;
+  roughness?: number;
+}) {
+  return (
+    <mesh position={position} castShadow receiveShadow>
+      <boxGeometry args={size} />
+      <meshStandardMaterial
+        color={color}
+        metalness={metalness}
+        roughness={roughness}
+      />
+    </mesh>
+  );
+}
+
+function Glass({
+  position,
+  size,
+}: {
+  position: [number, number, number];
+  size: [number, number, number];
+}) {
+  return (
+    <mesh position={position}>
+      <boxGeometry args={size} />
+      <meshPhysicalMaterial
+        color="#9cc5ca"
+        transparent
+        opacity={0.38}
+        metalness={0.12}
+        roughness={0.08}
+        side={THREE.DoubleSide}
+        depthWrite={false}
+      />
+    </mesh>
+  );
+}
+
+function LuxuryEstate() {
+  const wood = "#a87954";
+  const stone = "#c6bbae";
+  const concrete = "#d8d5cc";
+  const bronze = "#66594d";
+  const darkMetal = "#414a47";
+
+  return (
+    <group>
+      {/* LANDSCAPED ARCHITECTURAL BASE */}
+      <Box
+        position={[0, -0.08, 0]}
+        size={[9.5, 0.22, 7.2]}
+        color="#d5d8c7"
+      />
+
+      <Box
+        position={[0, 0.08, 0.4]}
+        size={[7.5, 0.16, 5.2]}
+        color={concrete}
+      />
+
+      {/* MAIN RESIDENTIAL VOLUMES */}
+      <Box
+        position={[-1.35, 1.25, -0.35]}
+        size={[4.6, 2.5, 3.7]}
+        color={stone}
+      />
+
+      <Box
+        position={[1.65, 1.2, -0.7]}
+        size={[2.8, 2.4, 3.1]}
+        color="#eee7dc"
+      />
+
+      {/* UPPER CANTILEVERED FLOOR */}
+      <Box
+        position={[0.7, 3.35, -0.55]}
+        size={[5.0, 2.1, 3.75]}
+        color={wood}
+      />
+
+      {/* HORIZONTAL ROOFLINES */}
+      <Box
+        position={[-1.35, 2.57, -0.35]}
+        size={[5.1, 0.19, 4.05]}
+        color={darkMetal}
+        metalness={0.35}
+      />
+
+      <Box
+        position={[0.7, 4.5, -0.55]}
+        size={[5.45, 0.22, 4.15]}
+        color={darkMetal}
+        metalness={0.45}
+      />
+
+      {/* LARGE GROUND FLOOR GLASS FACADE */}
+      <Glass
+        position={[-1.35, 1.25, 1.53]}
+        size={[4.05, 2.15, 0.045]}
+      />
+
+      {/* VERTICAL GLAZING MULLIONS */}
+      {[-3, -1.9, -0.8, 0.25].map((x) => (
+        <Box
+          key={`ground-frame-${x}`}
+          position={[x, 1.25, 1.57]}
+          size={[0.065, 2.3, 0.085]}
+          color={darkMetal}
+          metalness={0.5}
+        />
+      ))}
+
+      {/* UPPER PANORAMIC WINDOWS */}
+      <Glass
+        position={[0.7, 3.3, 1.35]}
+        size={[4.25, 1.5, 0.045]}
+      />
+
+      {[-1.2, 0, 1.2, 2.4].map((x) => (
+        <Box
+          key={`upper-frame-${x}`}
+          position={[x, 3.3, 1.39]}
+          size={[0.055, 1.55, 0.09]}
+          color={darkMetal}
+          metalness={0.55}
+        />
+      ))}
+
+      {/* WOOD ARCHITECTURAL FINS */}
+      {[0, 0.21, 0.42, 0.63, 0.84].map((n) => (
+        <Box
+          key={`wood-fin-${n}`}
+          position={[3.06, 3.25, -1.75 + n * 1.3]}
+          size={[0.09, 1.85, 0.095]}
+          color={bronze}
+        />
+      ))}
+
+      {/* SIDE WALL STONE ACCENT */}
+      <Box
+        position={[3.14, 1.25, -0.7]}
+        size={[0.2, 2.4, 2.7]}
+        color="#a89c8c"
+      />
+
+      {/* MAIN ENTRANCE DOOR */}
+      <Box
+        position={[1.6, 1.04, 0.91]}
+        size={[0.95, 2.05, 0.09]}
+        color={wood}
+      />
+
+      <Box
+        position={[1.97, 1.08, 0.99]}
+        size={[0.045, 0.42, 0.065]}
+        color="#d7c29e"
+        metalness={0.8}
+      />
+
+      {/* TERRACE */}
+      <Box
+        position={[-0.55, 0.19, 2.75]}
+        size={[6.3, 0.16, 2.1]}
+        color="#bca48c"
+      />
+
+      {/* TERRACE DECK LINES */}
+      {Array.from({ length: 12 }, (_, i) => (
+        <Box
+          key={`deck-${i}`}
+          position={[-3.4 + i * 0.52, 0.285, 2.75]}
+          size={[0.025, 0.012, 2.0]}
+          color="#796d5c"
+        />
+      ))}
+
+      {/* INFINITY-STYLE POOL */}
+      <Box
+        position={[-0.6, 0.09, 4.2]}
+        size={[5.9, 0.15, 1.1]}
+        color="#f1f0e7"
+      />
+
+      <Box
+        position={[-0.6, 0.18, 4.2]}
+        size={[5.55, 0.025, 0.88]}
+        color="#5babb5"
+        metalness={0.3}
+        roughness={0.12}
+      />
+
+      {/* OUTDOOR SOFA */}
+      <Box
+        position={[-2.35, 0.51, 2.65]}
+        size={[1.6, 0.42, 0.7]}
+        color="#ddd4c4"
+      />
+
+      <Box
+        position={[-2.35, 0.82, 2.98]}
+        size={[1.6, 0.58, 0.16]}
+        color="#d8d0c3"
+      />
+
+      {/* COFFEE TABLE */}
+      <Box
+        position={[-0.25, 0.48, 2.65]}
+        size={[0.85, 0.11, 0.65]}
+        color="#7d6b59"
+      />
+
+      {/* FRONT STEPS */}
+      {[0, 1, 2].map((i) => (
+        <Box
+          key={`step-${i}`}
+          position={[2.35, 0.11 - i * 0.04, 2.18 + i * 0.3]}
+          size={[1.3, 0.1, 0.32]}
+          color="#c9c5b9"
+        />
+      ))}
+
+      {/* LANDSCAPING */}
+      {[
+        [-3.7, 0, 2.7],
+        [3.8, 0, 2.6],
+        [-4, 0, -1.7],
+        [4.1, 0, -2.1],
+      ].map(([x, y, z], i) => (
+        <group key={`tree-${i}`} position={[x, y, z]}>
+          <mesh position={[0, 0.65, 0]} castShadow>
+            <cylinderGeometry args={[0.055, 0.09, 1.3, 7]} />
+            <meshStandardMaterial color="#76634e" />
+          </mesh>
+
+          <mesh position={[0, 1.55, 0]} castShadow>
+            <sphereGeometry args={[0.53, 12, 9]} />
+            <meshStandardMaterial
+              color={i % 2 === 0 ? "#70946c" : "#8ca77c"}
+              roughness={0.95}
+            />
+          </mesh>
+        </group>
+      ))}
+
+      {/* SMALL GARDEN PLANTS */}
+      {[-3.7, -2.8, 2.9, 3.7].map((x) => (
+        <mesh
+          key={`plant-${x}`}
+          position={[x, 0.17, 3.0]}
+          castShadow
+        >
+          <sphereGeometry args={[0.2, 10, 7]} />
+          <meshStandardMaterial color="#709b73" />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+function AgriculturalBarn() {
+  return (
+    <group>
+      <Box position={[0, 0.1, 0]} size={[7, 0.2, 5]} color="#d3c4a8" />
+      <Box position={[0, 1.5, 0]} size={[5.5, 3, 3.8]} color="#b98157" />
+
+      {/* Gabled roof geometry */}
+      <mesh position={[0, 3, 0]} rotation={[0, Math.PI / 2, 0]} castShadow>
+        <coneGeometry args={[3.4, 1.7, 4]} />
+        <meshStandardMaterial color="#5e716a" roughness={0.75} />
+      </mesh>
+
+      <Box position={[0, 1.3, 1.96]} size={[2.2, 2.5, 0.08]} color="#614c3f" />
+      <Box position={[-1.9, 1.7, 1.97]} size={[0.9, 1.2, 0.06]} color="#a5c9c4" />
+      <Box position={[1.9, 1.7, 1.97]} size={[0.9, 1.2, 0.06]} color="#a5c9c4" />
+
+      {[-2.5, -1.5, 1.5, 2.5].map((x) => (
+        <Box
+          key={x}
+          position={[x, 1.5, 2.02]}
+          size={[0.13, 3.0, 0.1]}
+          color="#785a43"
+        />
+      ))}
+    </group>
+  );
+}
+
+function VerticalFarm() {
+  return (
+    <group>
+      <Box position={[0, 0.1, 0]} size={[7, 0.2, 5]} color="#d7ddd0" />
+
+      {[-2.8, -1.4, 0, 1.4, 2.8].map((x) => (
+        <Box
+          key={`pillar-${x}`}
+          position={[x, 2.1, 0]}
+          size={[0.09, 4.2, 3.8]}
+          color="#8baca8"
+          metalness={0.55}
+        />
+      ))}
+
+      {[0.7, 1.65, 2.6, 3.55].map((y) => (
+        <group key={`level-${y}`}>
+          <Box
+            position={[0, y, 0]}
+            size={[6.2, 0.1, 3.5]}
+            color="#819d8c"
+            metalness={0.35}
+          />
+
+          {[-2.1, -0.7, 0.7, 2.1].map((x) => (
+            <group key={x}>
+              <Box
+                position={[x, y + 0.13, 0]}
+                size={[0.9, 0.13, 2.7]}
+                color="#6b493b"
+              />
+
+              {[-0.9, 0, 0.9].map((z) => (
+                <mesh key={z} position={[x, y + 0.34, z]}>
+                  <sphereGeometry args={[0.27, 12, 8]} />
+                  <meshStandardMaterial color="#4b9163" roughness={0.9} />
+                </mesh>
+              ))}
+            </group>
+          ))}
+        </group>
+      ))}
+
+      <Box position={[0, 4.4, 0]} size={[6.4, 0.12, 4]} color="#b7d1c9" />
+    </group>
+  );
+}
+
+function AnimatedScene({
+  scene,
+}: {
+  scene: SceneType;
+}) {
+  return (
+    <group position={[0, -1.1, 0]}>
+      <Structure key={scene} type={scene} />
+    </group>
+  );
+}
+
+export default function HeroMorphScene({
+  scene,
+}: {
+  scene: SceneType;
+}) {
+  return (
+    <div className="hero-morph-canvas">
+      <Canvas
+        shadows
+        dpr={[1, 1.6]}
+        camera={{
+          position: [9, 6.5, 11],
+          fov: 38,
+          near: 0.1,
+          far: 100,
+        }}
+      >
+        <color attach="background" args={["#f4f5ec"]} />
+
+        <ambientLight intensity={1.5} />
+        <directionalLight
+          position={[8, 12, 7]}
+          intensity={2.4}
+          castShadow
+        />
+
+        <Suspense fallback={null}>
+          <AnimatedScene scene={scene} />
+          <Environment preset="city" />
+        </Suspense>
+
+        <OrbitControls
+          enablePan={false}
+          enableZoom={false}
+          enableDamping
+          autoRotate={false}
+          minPolarAngle={0.2}
+          maxPolarAngle={Math.PI / 2.15}
+        />
+      </Canvas>
+    </div>
+  );
+}

@@ -1,0 +1,1380 @@
+{
+  "schemaVersion": 1,
+  "templateId": "RES-HOUSE-001",
+  "name": "The Haven",
+  "subtitle": "Modern One-Bedroom Residence",
+  "niche": "residential",
+  "status": "concept",
+  "units": "meters",
+  "coordinateSystem": "Blender Z-up",
+  "width": 9.0,
+  "length": 11.0,
+  "floors": 1,
+  "floorHeight": 3.1,
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "rooms": [
+    {
+      "id": "living-kitchen",
+      "type": "living",
+      "name": "Open Living and Kitchen",
+      "floor": 1,
+      "bounds": {
+        "x": -4.5,
+        "y": -5.5,
+        "width": 9.0,
+        "length": 5.5
+      }
+    },
+    {
+      "id": "bedroom-1",
+      "type": "bedroom",
+      "name": "Primary Bedroom",
+      "floor": 1,
+      "bounds": {
+        "x": -4.5,
+        "y": 0,
+        "width": 5.2,
+        "length": 5.5
+      }
+    },
+    {
+      "id": "bathroom-1",
+      "type": "bathroom",
+      "name": "Bathroom",
+      "floor": 1,
+      "bounds": {
+        "x": 0.7,
+        "y": 1,
+        "width": 3.8,
+        "length": 4.5
+      }
+    },
+    {
+      "id": "circulation-1",
+      "type": "circulation",
+      "name": "Bathroom Access",
+      "floor": 1,
+      "bounds": {
+        "x": 0.7,
+        "y": 0,
+        "width": 3.8,
+        "length": 1.0
+      }
+    }
+  ],
+  "openings": [
+    {
+      "id": "front-door",
+      "type": "door",
+      "wall": "front",
+      "center": [
+        0,
+        -5.5
+      ],
+      "width": 1.16,
+      "height": 2.35
+    },
+    {
+      "id": "front-window",
+      "type": "window",
+      "wall": "front",
+      "center": [
+        -3.15,
+        -5.5
+      ],
+      "width": 1.6,
+      "height": 1.4,
+      "sillHeight": 0.95
+    }
+  ],
+  "assetPacks": [
+    {
+      "id": "architecture",
+      "url": "/templates/the-haven/architecture.glb",
+      "componentCount": 28
+    },
+    {
+      "id": "openings",
+      "url": "/templates/the-haven/openings.glb",
+      "componentCount": 9
+    },
+    {
+      "id": "interior",
+      "url": "/templates/the-haven/interior.glb",
+      "componentCount": 25
+    },
+    {
+      "id": "roof",
+      "url": "/templates/the-haven/roof.glb",
+      "componentCount": 3
+    },
+    {
+      "id": "site",
+      "url": "/templates/the-haven/site.glb",
+      "componentCount": 25
+    }
+  ],
+  "components": [
+    {
+      "id": "ARCH_Bathroom_Partition_Header",
+      "position": [
+        2.55,
+        1.0,
+        2.65
+      ],
+      "dimensions": [
+        0.9,
+        0.18,
+        0.9
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ARCH_Bathroom_Partition_Left",
+      "position": [
+        1.4,
+        1.0,
+        1.55
+      ],
+      "dimensions": [
+        1.4,
+        0.18,
+        3.1
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ARCH_Bathroom_Partition_Right",
+      "position": [
+        3.75,
+        1.0,
+        1.55
+      ],
+      "dimensions": [
+        1.5,
+        0.18,
+        3.1
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ARCH_Bedroom_Bath_Divider",
+      "position": [
+        0.7,
+        2.75,
+        1.55
+      ],
+      "dimensions": [
+        0.14,
+        5.5,
+        3.1
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ARCH_Bedroom_Partition_Header",
+      "position": [
+        -1.15,
+        0.0,
+        2.65
+      ],
+      "dimensions": [
+        0.9,
+        0.18,
+        0.9
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ARCH_Bedroom_Partition_Left",
+      "position": [
+        -3.05,
+        0.0,
+        1.55
+      ],
+      "dimensions": [
+        2.9,
+        0.18,
+        3.1
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ARCH_Bedroom_Partition_Right",
+      "position": [
+        0.0,
+        0.0,
+        1.55
+      ],
+      "dimensions": [
+        1.4,
+        0.18,
+        3.1
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ARCH_Foundation",
+      "position": [
+        0.0,
+        0.0,
+        -0.15
+      ],
+      "dimensions": [
+        9.0,
+        11.0,
+        0.3
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ARCH_Front_Entry_Wall_Header",
+      "position": [
+        0.0,
+        -5.5,
+        2.725
+      ],
+      "dimensions": [
+        1.16,
+        0.18,
+        0.75
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ARCH_Front_Entry_Wall_Left",
+      "position": [
+        -1.14,
+        -5.5,
+        1.55
+      ],
+      "dimensions": [
+        1.12,
+        0.18,
+        3.1
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ARCH_Front_Entry_Wall_Right",
+      "position": [
+        0.79,
+        -5.5,
+        1.55
+      ],
+      "dimensions": [
+        0.42,
+        0.18,
+        3.1
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ARCH_Front_Right",
+      "position": [
+        2.75,
+        -5.5,
+        1.55
+      ],
+      "dimensions": [
+        3.5,
+        0.14,
+        3.1
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ARCH_Front_Window_Wall_Header",
+      "position": [
+        -3.15,
+        -5.5,
+        2.725
+      ],
+      "dimensions": [
+        1.6,
+        0.18,
+        0.75
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ARCH_Front_Window_Wall_Left",
+      "position": [
+        -4.225,
+        -5.5,
+        1.55
+      ],
+      "dimensions": [
+        0.55,
+        0.18,
+        3.1
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ARCH_Front_Window_Wall_Right",
+      "position": [
+        -2.025,
+        -5.5,
+        1.55
+      ],
+      "dimensions": [
+        0.65,
+        0.18,
+        3.1
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ARCH_Front_Window_Wall_Sill",
+      "position": [
+        -3.15,
+        -5.5,
+        0.475
+      ],
+      "dimensions": [
+        1.6,
+        0.18,
+        0.95
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ARCH_Left_Exterior",
+      "position": [
+        -4.5,
+        0.0,
+        1.55
+      ],
+      "dimensions": [
+        0.14,
+        11.0,
+        3.1
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ARCH_Oak_Interior_Floor",
+      "position": [
+        0.0,
+        0.0,
+        0.02
+      ],
+      "dimensions": [
+        8.7,
+        10.7,
+        0.045
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ARCH_Rear_Exterior",
+      "position": [
+        0.0,
+        5.5,
+        1.55
+      ],
+      "dimensions": [
+        9.0,
+        0.14,
+        3.1
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ARCH_Right_Exterior",
+      "position": [
+        4.5,
+        0.0,
+        1.55
+      ],
+      "dimensions": [
+        0.14,
+        11.0,
+        3.1
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "BATH_Mirror",
+      "position": [
+        4.38,
+        2.12,
+        1.78
+      ],
+      "dimensions": [
+        0.035,
+        0.95,
+        1.15
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "BATH_Shower_Screen",
+      "position": [
+        2.65,
+        4.65,
+        1.0
+      ],
+      "dimensions": [
+        0.025,
+        1.35,
+        1.9
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "BATH_Shower_Tray",
+      "position": [
+        3.4,
+        4.65,
+        0.1
+      ],
+      "dimensions": [
+        1.5,
+        1.35,
+        0.16
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "BATH_Sink_Counter",
+      "position": [
+        3.55,
+        2.12,
+        0.94
+      ],
+      "dimensions": [
+        0.77,
+        1.34,
+        0.08
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "BATH_Tile_Floor",
+      "position": [
+        2.58,
+        3.25,
+        0.052
+      ],
+      "dimensions": [
+        3.54,
+        4.3,
+        0.03
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "BATH_Toilet_Base",
+      "position": [
+        1.68,
+        3.7,
+        0.29
+      ],
+      "dimensions": [
+        0.48,
+        0.68,
+        0.58
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "BATH_Toilet_Tank",
+      "position": [
+        1.68,
+        4.0,
+        0.68
+      ],
+      "dimensions": [
+        0.48,
+        0.2,
+        0.62
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "BATH_Vanity",
+      "position": [
+        3.55,
+        2.12,
+        0.45
+      ],
+      "dimensions": [
+        0.72,
+        1.25,
+        0.9
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "BED_Nightstand_0",
+      "position": [
+        -3.75,
+        3.3,
+        0.34
+      ],
+      "dimensions": [
+        0.48,
+        0.55,
+        0.68
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "BED_Nightstand_1",
+      "position": [
+        -0.93,
+        3.3,
+        0.34
+      ],
+      "dimensions": [
+        0.48,
+        0.55,
+        0.68
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "BED_Primary_Frame",
+      "position": [
+        -2.35,
+        2.7,
+        0.32
+      ],
+      "dimensions": [
+        1.85,
+        2.1,
+        0.42
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "BED_Primary_Headboard",
+      "position": [
+        -2.35,
+        3.78,
+        0.92
+      ],
+      "dimensions": [
+        1.95,
+        0.16,
+        1.3
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "BED_Primary_Mattress",
+      "position": [
+        -2.35,
+        2.7,
+        0.6
+      ],
+      "dimensions": [
+        1.75,
+        1.98,
+        0.24
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "BED_Wardrobe",
+      "position": [
+        -3.9,
+        1.05,
+        1.17
+      ],
+      "dimensions": [
+        0.78,
+        1.6,
+        2.32
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "DOOR_Bathroom",
+      "position": [
+        2.55,
+        1.0,
+        1.07
+      ],
+      "dimensions": [
+        0.82,
+        0.055,
+        2.12
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "DOOR_Bedroom",
+      "position": [
+        -1.15,
+        0.0,
+        1.07
+      ],
+      "dimensions": [
+        0.82,
+        0.055,
+        2.12
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "DOOR_Main_Handle",
+      "position": [
+        0.35,
+        -5.59,
+        1.15
+      ],
+      "dimensions": [
+        0.025,
+        0.04,
+        0.42
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "DOOR_Main_Walnut",
+      "position": [
+        0.0,
+        -5.5,
+        1.13
+      ],
+      "dimensions": [
+        1.03,
+        0.07,
+        2.26
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "FACADE_Front_Canopy",
+      "position": [
+        0.0,
+        -6.03,
+        2.67
+      ],
+      "dimensions": [
+        2.7,
+        1.25,
+        0.14
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "FACADE_Walnut_Slat_0",
+      "position": [
+        0.9,
+        -5.62,
+        1.35
+      ],
+      "dimensions": [
+        0.075,
+        0.09,
+        2.4
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "FACADE_Walnut_Slat_1",
+      "position": [
+        1.03,
+        -5.62,
+        1.35
+      ],
+      "dimensions": [
+        0.075,
+        0.09,
+        2.4
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "FACADE_Walnut_Slat_2",
+      "position": [
+        1.16,
+        -5.62,
+        1.35
+      ],
+      "dimensions": [
+        0.075,
+        0.09,
+        2.4
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "FACADE_Walnut_Slat_3",
+      "position": [
+        1.29,
+        -5.62,
+        1.35
+      ],
+      "dimensions": [
+        0.075,
+        0.09,
+        2.4
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "FACADE_Walnut_Slat_4",
+      "position": [
+        1.42,
+        -5.62,
+        1.35
+      ],
+      "dimensions": [
+        0.075,
+        0.09,
+        2.4
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "FACADE_Walnut_Slat_5",
+      "position": [
+        1.55,
+        -5.62,
+        1.35
+      ],
+      "dimensions": [
+        0.075,
+        0.09,
+        2.4
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "FACADE_Walnut_Slat_6",
+      "position": [
+        1.68,
+        -5.62,
+        1.35
+      ],
+      "dimensions": [
+        0.075,
+        0.09,
+        2.4
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "FURN_Coffee_Table",
+      "position": [
+        -2.3,
+        -3.55,
+        0.33
+      ],
+      "dimensions": [
+        1.25,
+        0.68,
+        0.13
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "FURN_Living_Rug",
+      "position": [
+        -2.35,
+        -2.85,
+        0.065
+      ],
+      "dimensions": [
+        3.4,
+        2.9,
+        0.02
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "FURN_Living_Sofa",
+      "position": [
+        -2.45,
+        -2.1,
+        0.42
+      ],
+      "dimensions": [
+        2.55,
+        0.92,
+        0.7
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "FURN_Media_Console",
+      "position": [
+        -3.9,
+        -2.85,
+        0.36
+      ],
+      "dimensions": [
+        0.38,
+        1.65,
+        0.72
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "FURN_Sofa_Back",
+      "position": [
+        -2.45,
+        -1.69,
+        0.77
+      ],
+      "dimensions": [
+        2.55,
+        0.16,
+        0.82
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "KIT_Base_Cabinet",
+      "position": [
+        3.55,
+        -2.6,
+        0.48
+      ],
+      "dimensions": [
+        0.7,
+        3.1,
+        0.96
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "KIT_Cooktop",
+      "position": [
+        3.55,
+        -3.45,
+        1.06
+      ],
+      "dimensions": [
+        0.6,
+        0.68,
+        0.025
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "KIT_Island",
+      "position": [
+        1.5,
+        -2.7,
+        0.47
+      ],
+      "dimensions": [
+        1.1,
+        2.1,
+        0.94
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "KIT_Island_Counter",
+      "position": [
+        1.5,
+        -2.7,
+        0.98
+      ],
+      "dimensions": [
+        1.2,
+        2.25,
+        0.1
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "KIT_Sink",
+      "position": [
+        3.55,
+        -1.55,
+        1.06
+      ],
+      "dimensions": [
+        0.45,
+        0.55,
+        0.025
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "KIT_Stone_Counter",
+      "position": [
+        3.55,
+        -2.6,
+        1.0
+      ],
+      "dimensions": [
+        0.84,
+        3.25,
+        0.1
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ROOF_Main_Removable",
+      "position": [
+        0.0,
+        0.0,
+        3.22
+      ],
+      "dimensions": [
+        9.65,
+        11.65,
+        0.23
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ROOF_Side_Fascia_0",
+      "position": [
+        -4.72,
+        0.0,
+        3.21
+      ],
+      "dimensions": [
+        0.12,
+        11.65,
+        0.3
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "ROOF_Side_Fascia_1",
+      "position": [
+        4.72,
+        0.0,
+        3.21
+      ],
+      "dimensions": [
+        0.12,
+        11.65,
+        0.3
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Driveway",
+      "position": [
+        -7.5,
+        -9.3,
+        -0.085
+      ],
+      "dimensions": [
+        3.6,
+        8.4,
+        0.09
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Grass_Lot",
+      "position": [
+        0.0,
+        0.0,
+        -0.29
+      ],
+      "dimensions": [
+        25.0,
+        27.0,
+        0.24
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Patio",
+      "position": [
+        0.0,
+        7.1,
+        -0.08
+      ],
+      "dimensions": [
+        5.0,
+        3.0,
+        0.12
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Shrub_0",
+      "position": [
+        -5.7,
+        -4.8,
+        0.25
+      ],
+      "dimensions": [
+        0.94,
+        0.94,
+        0.84
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Shrub_1",
+      "position": [
+        -5.7,
+        -3.0,
+        0.25
+      ],
+      "dimensions": [
+        0.94,
+        0.94,
+        0.84
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Shrub_10",
+      "position": [
+        5.7,
+        2.4,
+        0.25
+      ],
+      "dimensions": [
+        0.94,
+        0.94,
+        0.84
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Shrub_11",
+      "position": [
+        5.7,
+        4.2,
+        0.25
+      ],
+      "dimensions": [
+        2.0,
+        2.0,
+        2.0
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Shrub_2",
+      "position": [
+        -5.7,
+        -1.2,
+        0.25
+      ],
+      "dimensions": [
+        0.94,
+        0.94,
+        0.84
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Shrub_3",
+      "position": [
+        -5.7,
+        0.6,
+        0.25
+      ],
+      "dimensions": [
+        0.94,
+        0.94,
+        0.84
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Shrub_4",
+      "position": [
+        -5.7,
+        2.4,
+        0.25
+      ],
+      "dimensions": [
+        0.94,
+        0.94,
+        0.84
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Shrub_5",
+      "position": [
+        -5.7,
+        4.2,
+        0.25
+      ],
+      "dimensions": [
+        0.94,
+        0.94,
+        0.84
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Shrub_6",
+      "position": [
+        5.7,
+        -4.8,
+        0.25
+      ],
+      "dimensions": [
+        0.94,
+        0.94,
+        0.84
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Shrub_7",
+      "position": [
+        5.7,
+        -3.0,
+        0.25
+      ],
+      "dimensions": [
+        0.94,
+        0.94,
+        0.84
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Shrub_8",
+      "position": [
+        5.7,
+        -1.2,
+        0.25
+      ],
+      "dimensions": [
+        0.94,
+        0.94,
+        0.84
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Shrub_9",
+      "position": [
+        5.7,
+        0.6,
+        0.25
+      ],
+      "dimensions": [
+        0.94,
+        0.94,
+        0.84
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Street",
+      "position": [
+        0.0,
+        -17.0,
+        -0.17
+      ],
+      "dimensions": [
+        31.0,
+        7.0,
+        0.15
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Tree_Canopy_0",
+      "position": [
+        -9.0,
+        -9.0,
+        3.25
+      ],
+      "dimensions": [
+        2.6,
+        2.6,
+        2.9
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Tree_Canopy_1",
+      "position": [
+        9.0,
+        -8.0,
+        3.25
+      ],
+      "dimensions": [
+        2.6,
+        2.6,
+        2.9
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Tree_Canopy_2",
+      "position": [
+        -9.0,
+        9.0,
+        3.25
+      ],
+      "dimensions": [
+        2.6,
+        2.6,
+        2.9
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Tree_Canopy_3",
+      "position": [
+        9.0,
+        10.0,
+        3.25
+      ],
+      "dimensions": [
+        2.6,
+        2.6,
+        2.9
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Tree_Trunk_0",
+      "position": [
+        -9.0,
+        -9.0,
+        1.25
+      ],
+      "dimensions": [
+        0.26,
+        0.26,
+        2.5
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Tree_Trunk_1",
+      "position": [
+        9.0,
+        -8.0,
+        1.25
+      ],
+      "dimensions": [
+        0.26,
+        0.26,
+        2.5
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Tree_Trunk_2",
+      "position": [
+        -9.0,
+        9.0,
+        1.25
+      ],
+      "dimensions": [
+        0.26,
+        0.26,
+        2.5
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Tree_Trunk_3",
+      "position": [
+        9.0,
+        10.0,
+        1.25
+      ],
+      "dimensions": [
+        0.26,
+        0.26,
+        2.5
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "SITE_Walkway",
+      "position": [
+        0.0,
+        -9.0,
+        -0.085
+      ],
+      "dimensions": [
+        1.35,
+        7.0,
+        0.09
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "WINDOW_Front_Frame_-2.35",
+      "position": [
+        -2.35,
+        -5.59,
+        1.65
+      ],
+      "dimensions": [
+        0.065,
+        0.09,
+        1.48
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "WINDOW_Front_Frame_-3.95",
+      "position": [
+        -3.95,
+        -5.59,
+        1.65
+      ],
+      "dimensions": [
+        0.065,
+        0.09,
+        1.48
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "WINDOW_Front_Glass",
+      "position": [
+        -3.15,
+        -5.5,
+        1.65
+      ],
+      "dimensions": [
+        1.51,
+        0.025,
+        1.3
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "WINDOW_Front_Rail_0.95",
+      "position": [
+        -3.15,
+        -5.59,
+        0.95
+      ],
+      "dimensions": [
+        1.67,
+        0.09,
+        0.065
+      ],
+      "editableAs": "visual-component"
+    },
+    {
+      "id": "WINDOW_Front_Rail_2.35",
+      "position": [
+        -3.15,
+        -5.59,
+        2.35
+      ],
+      "dimensions": [
+        1.67,
+        0.09,
+        0.065
+      ],
+      "editableAs": "visual-component"
+    }
+  ]
+}

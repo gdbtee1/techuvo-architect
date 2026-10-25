@@ -1,0 +1,85 @@
+import type {
+  Point2D,
+  Wall,
+} from "../../types/architecture";
+
+export const GRID_SIZE = 0.25;
+export const SNAP_DISTANCE = 0.3;
+
+export function distance(
+  a: Point2D,
+  b: Point2D
+): number {
+  return Math.hypot(
+    b.x - a.x,
+    b.y - a.y
+  );
+}
+
+export function snapToGrid(
+  point: Point2D
+): Point2D {
+  return {
+    x:
+      Math.round(point.x / GRID_SIZE) *
+      GRID_SIZE,
+    y:
+      Math.round(point.y / GRID_SIZE) *
+      GRID_SIZE,
+  };
+}
+
+export function snapToWallEndpoint(
+  point: Point2D,
+  walls: Wall[],
+  threshold = SNAP_DISTANCE
+): Point2D {
+  let closest: Point2D | null = null;
+  let smallestDistance = threshold;
+
+  for (const wall of walls) {
+    for (const endpoint of [
+      wall.start,
+      wall.end,
+    ]) {
+      const d = distance(point, endpoint);
+
+      if (d < smallestDistance) {
+        closest = endpoint;
+        smallestDistance = d;
+      }
+    }
+  }
+
+  return closest
+    ? { ...closest }
+    : snapToGrid(point);
+}
+
+export function wallLength(
+  wall: Wall
+): number {
+  return distance(wall.start, wall.end);
+}
+
+export function wallAngle(
+  wall: Wall
+): number {
+  return Math.atan2(
+    wall.end.y - wall.start.y,
+    wall.end.x - wall.start.x
+  );
+}
+
+export function isWallValid(
+  start: Point2D,
+  end: Point2D
+): boolean {
+  return (
+    Number.isFinite(start.x) &&
+    Number.isFinite(start.y) &&
+    Number.isFinite(end.x) &&
+    Number.isFinite(end.y) &&
+    distance(start, end) >= 0.1
+  );
+}

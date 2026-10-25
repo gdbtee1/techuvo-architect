@@ -1,0 +1,353 @@
+import {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+
+import {
+  Stage,
+  Layer,
+  Line,
+  Circle,
+  Text,
+} from "react-konva";
+
+import type Konva from "konva";
+
+import { useArchitectStore } from "../../store/useArchitectStore";
+import type { Point2D } from "../../types/architecture";
+
+const SCALE = 50;
+const GRID = 0.25;
+
+function snap(value: number) {
+  return Math.round(value / GRID) * GRID;
+}
+
+function wallLength(
+  a: Point2D,
+  b: Point2D
+) {
+  return Math.hypot(
+    b.x - a.x,
+    b.y - a.y
+  );
+}
+
+export default function CadCanvas() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const [size, setSize] = useState({
+    width: 800,
+    height: 600,
+  });
+
+  const [origin, setOrigin] = useState<Point2D>({
+    x: 0,
+    y: 0,
+  });
+
+  const [startPoint, setStartPoint] =
+    useState<Point2D | null>(null);
+
+  const [cursor, setCursor] =
+    useState<Point2D | null>(null);
+
+  const plan = useArchitectStore((s) => s.plan);
+  const activeTool = useArchitectStore((s) => s.activeTool);
+  const addWall = useArchitectStore((s) => s.addWall);
+  const selectWall = useArchitectStore((s) => s.selectWall);
+  const selectedWallId = useArchitectStore(
+    (s) => s.selectedWallId
+  );
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const observer = new ResizeObserver((entries) => {
+      const rect = entries[0].contentRect;
+
+      setSize({
+        width: rect.width,
+        height: rect.height,
+      });
+    });
+
+    observer.observe(containerRef.current);
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Display all geometry using meters internally.
+  // The screen origin begins in the canvas center.
+  function toScreen(point: Point2D) {
+    return {
+      x: size.width / 2 + origin.x + point.x * SCALE,
+      y: size.height / 2 + origin.y + point.y * SCALE,
+    };
+  }
+
+  function toWorld(point: Point2D): Point2D {
+    return {
+      x: snap(
+        (point.x - size.width / 2 - origin.x) / SCALE
+      ),
+      y: snap(
+        (point.y - size.height / 2 - origin.y) / SCALE
+      ),
+    };
+  }
+
+  function getWorldPointer(
+    stage: Konva.Stage
+  ): Point2D | null {
+    const position = stage.getPointerPosition();
+
+    if (!position) return null;
+
+    return toWorld(position);
+  }
+
+  function handlePointerMove(
+    stage: Konva.Stage
+  ) {
+    const point = getWorldPointer(stage);
+
+    if (!point) return;
+
+    setCursor(point);
+  }
+
+  function handleCanvasTap(
+    stage: Konva.Stage
+  ) {
+    if (activeTool !== "wall") return;
+
+    const point = getWorldPointer(stage);
+
+    if (!point) return;
+
+    if (!startPoint) {
+      setStartPoint(point);
+      return;
+    }
+
+    if (wallLength(startPoint, point) < 0.1) {
+      return;
+    }
+
+    addWall(startPoint, point);
+
+    // Continue drawing from the last endpoint.
+    setStartPoint(point);
+  }
+
+  const gridLines = [];
+
+  const step = SCALE * GRID;
+
+  for (
+    let x = (size.width / 2 + origin.x) % step;
+    x < size.width;
+    x += step
+  ) {
+    gridLines.push(
+      <Line
+        key={`gx-${x}`}
+        points={[x, 0, x, size.height]}
+        stroke="#dce7df"
+        strokeWidth={0.5}
+        listening={false}
+      />
+    );
+  }
+
+  for (
+    let y = (size.height / 2 + origin.y) % step;
+    y < size.height;
+    y += step
+  ) {
+    gridLines.push(
+      <Line
+        key={`gy-${y}`}
+        points={[0, y, size.width, y]}
+        stroke="#dce7df"
+        strokeWidth={0.5}
+        listening={false}
+      />
+    );
+  }
+
+  const previewEnd =
+    startPoint && cursor
+      ? toScreen(cursor)
+      : null;
+
+  const previewStart = startPoint
+    ? toScreen(startPoint)
+    : null;
+
+  return (
+    <div
+      ref={containerRef}
+      style={{
+        width: "100%",
+        height: "100%",
+        position: "relative",
+        touchAction: "none",
+        background: "#fbfcfa",
+      }}
+    >
+      <Stage
+        width={size.width}
+        height={size.height}
+        onMouseMove={(event) =>
+          handlePointerMove(event.target.getStage()!)
+        }
+        onTouchMove={(event) =>
+          handlePointerMove(event.target.getStage()!)
+        }
+        onClick={(event) => {
+          if (activeTool === "select") {
+            selectWall(null);
+          } else {
+            handleCanvasTap(event.target.getStage()!);
+          }
+        }}
+        onTap={(event) => {
+          if (activeTool === "select") {
+            selectWall(null);
+          } else {
+            handleCanvasTap(event.target.getStage()!);
+          }
+        }}
+      >
+        <Layer listening={false}>
+          {gridLines}
+        </Layer>
+
+        <Layer>
+          {plan.walls.map((wall) => {
+            const a = toScreen(wall.start);
+            const b = toScreen(wall.end);
+            const length = wallLength(
+              wall.start,
+              wall.end
+            );
+
+            return (
+              <Line
+                key={wall.id}
+                points={[a.x, a.y, b.x, b.y]}
+                stroke={
+                  selectedWallId === wall.id
+                    ? "#d97706"
+                    : "#164f41"
+                }
+                strokeWidth={Math.max(
+                  3,
+                  wall.thickness * SCALE
+                )}
+                lineCap="square"
+                hitStrokeWidth={24}
+                onClick={(event) => {
+                  if (activeTool === "select") {
+                    selectWall(wall.id);
+                    event.cancelBubble = true;
+                  }
+                }}
+                onTap={(event) => {
+                  if (activeTool === "select") {
+                    selectWall(wall.id);
+                    event.cancelBubble = true;
+                  }
+                }}
+              />
+            );
+          })}
+        </Layer>
+
+        <Layer listening={false}>
+          {plan.walls.map((wall) => {
+            const a = toScreen(wall.start);
+            const b = toScreen(wall.end);
+
+            return (
+              <Text
+                key={`label-${wall.id}`}
+                x={(a.x + b.x) / 2 - 25}
+                y={(a.y + b.y) / 2 - 20}
+                text={`${wallLength(
+                  wall.start,
+                  wall.end
+                ).toFixed(2)} m`}
+                fontSize={12}
+                fontFamily="Arial"
+                fill="#446c5c"
+              />
+            );
+          })}
+
+          {previewStart && previewEnd && (
+            <>
+              <Line
+                points={[
+                  previewStart.x,
+                  previewStart.y,
+                  previewEnd.x,
+                  previewEnd.y,
+                ]}
+                stroke="#0d9488"
+                strokeWidth={3}
+                dash={[8, 5]}
+              />
+
+              <Circle
+                x={previewStart.x}
+                y={previewStart.y}
+                radius={5}
+                fill="#0d9488"
+              />
+
+              <Text
+                x={
+                  (previewStart.x + previewEnd.x) / 2
+                }
+                y={
+                  (previewStart.y + previewEnd.y) / 2 -
+                  22
+                }
+                text={`${wallLength(
+                  startPoint!,
+                  cursor!
+                ).toFixed(2)} m`}
+                fontSize={13}
+                fontStyle="bold"
+                fill="#0d9488"
+              />
+            </>
+          )}
+        </Layer>
+      </Stage>
+
+      <div className="cad-canvas-actions">
+        <button
+          onClick={() => {
+            setStartPoint(null);
+            setCursor(null);
+          }}
+        >
+          Cancel wall
+        </button>
+
+        <button
+          onClick={() =>
+            setOrigin({ x: 0, y: 0 })
+          }
+        >
+          Center view
+        </button>
+      </div>
+    </div>
+  );
+}

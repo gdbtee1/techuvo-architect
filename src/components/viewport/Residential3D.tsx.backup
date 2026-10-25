@@ -1,0 +1,204 @@
+import { useMemo } from "react";
+import * as THREE from "three";
+import { detectRooms } from "../../engine/geometry/roomDetection";
+import type { DetectedRoom } from "../../engine/geometry/roomDetection";
+import { Canvas } from "@react-three/fiber";
+import {
+  Grid,
+  OrbitControls,
+  PerspectiveCamera,
+} from "@react-three/drei";
+
+import { useArchitectStore } from "../../store/useArchitectStore";
+import type { Wall } from "../../types/architecture";
+
+function ArchitecturalWall({ wall }: { wall: Wall }) {
+  const dx = wall.end.x - wall.start.x;
+  const dy = wall.end.y - wall.start.y;
+
+  const length = Math.hypot(dx, dy);
+
+  if (length < 0.001) return null;
+
+  const centerX = (wall.start.x + wall.end.x) / 2;
+  const centerZ = (wall.start.y + wall.end.y) / 2;
+
+  const rotation = -Math.atan2(dy, dx);
+
+  return (
+    <mesh
+      position={[
+        centerX,
+        wall.height / 2,
+        centerZ,
+      ]}
+      rotation={[0, rotation, 0]}
+      castShadow
+      receiveShadow
+    >
+      <boxGeometry
+        args={[
+          length,
+          wall.height,
+          wall.thickness,
+        ]}
+      />
+
+      <meshStandardMaterial
+        color="#e4ded3"
+        roughness={0.85}
+      />
+    </mesh>
+  );
+}
+
+
+function ArchitecturalFloor({
+  room,
+}: {
+  room: DetectedRoom;
+}) {
+  const geometry = useMemo(() => {
+    const shape = new THREE.Shape();
+
+    room.points.forEach((point, index) => {
+      if (index === 0) {
+        shape.moveTo(point.x, point.y);
+      } else {
+        shape.lineTo(point.x, point.y);
+      }
+    });
+
+    shape.closePath();
+
+    const result = new THREE.ShapeGeometry(shape);
+
+    // ShapeGeometry uses the XY plane.
+    // Rotate geometry into our XZ ground plane.
+    result.rotateX(Math.PI / 2);
+
+    return result;
+  }, [room]);
+
+  return (
+    <mesh
+      geometry={geometry}
+      position={[0, 0.025, 0]}
+      receiveShadow
+    >
+      <meshStandardMaterial
+        color="#d4b99a"
+        roughness={0.9}
+        side={THREE.DoubleSide}
+      />
+    </mesh>
+  );
+}
+
+function ResidentialScene() {
+  const walls = useArchitectStore(
+    (state) => state.plan.walls
+  );
+
+  const rooms = useMemo(
+    () => detectRooms(walls),
+    [walls]
+  );
+
+  const bounds = walls.flatMap((wall) => [
+    wall.start,
+    wall.end,
+  ]);
+
+  const centerX = bounds.length
+    ? (Math.min(...bounds.map((p) => p.x)) +
+        Math.max(...bounds.map((p) => p.x))) / 2
+    : 0;
+
+  const centerZ = bounds.length
+    ? (Math.min(...bounds.map((p) => p.y)) +
+        Math.max(...bounds.map((p) => p.y))) / 2
+    : 0;
+
+  return (
+    <>
+      <color
+        attach="background"
+        args={["#e8eeea"]}
+      />
+
+      <ambientLight intensity={1.5} />
+
+      <directionalLight
+        position={[10, 18, 12]}
+        intensity={2.1}
+        castShadow
+      />
+
+      <PerspectiveCamera
+        makeDefault
+        position={[
+          centerX + 12,
+          14,
+          centerZ + 16,
+        ]}
+        fov={45}
+      />
+
+      <OrbitControls
+        makeDefault
+        target={[centerX, 0, centerZ]}
+        enableDamping
+        minDistance={2}
+        maxDistance={150}
+        maxPolarAngle={Math.PI / 2 - 0.02}
+      />
+
+      <Grid
+        position={[0, -0.03, 0]}
+        infiniteGrid
+        cellSize={1}
+        sectionSize={5}
+        cellColor="#b8c9bd"
+        sectionColor="#719982"
+        fadeDistance={100}
+      />
+
+      {rooms.map((room) => (
+        <ArchitecturalFloor
+          key={room.id}
+          room={room}
+        />
+      ))}
+
+      {walls.map((wall) => (
+        <ArchitecturalWall
+          key={wall.id}
+          wall={wall}
+        />
+      ))}
+    </>
+  );
+}
+
+export default function Residential3D() {
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        minHeight: 0,
+        position: "relative",
+        touchAction: "none",
+      }}
+    >
+      <Canvas shadows dpr={[1, 2]}>
+        <ResidentialScene />
+      </Canvas>
+
+      <div className="viewport3d-label">
+        LIVE 3D ARCHITECTURAL MODEL
+      </div>
+    </div>
+  );
+}

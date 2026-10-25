@@ -1,0 +1,120 @@
+import { create } from "zustand";
+
+import type {
+  EditorMode,
+  EditorTool,
+  FloorPlan,
+  Point2D,
+  Wall,
+} from "../types/architecture";
+
+interface ArchitectState {
+  plan: FloorPlan;
+  activeTool: EditorTool;
+  editorMode: EditorMode;
+  selectedWallId: string | null;
+
+  setTool: (tool: EditorTool) => void;
+  setEditorMode: (mode: EditorMode) => void;
+  selectWall: (id: string | null) => void;
+
+  addWall: (
+    start: Point2D,
+    end: Point2D
+  ) => void;
+
+  updateWall: (
+    id: string,
+    changes: Partial<Wall>
+  ) => void;
+
+  deleteSelectedWall: () => void;
+  clearSelection: () => void;
+}
+
+const timestamp = new Date().toISOString();
+
+export const useArchitectStore =
+  create<ArchitectState>((set) => ({
+    plan: {
+      id: crypto.randomUUID(),
+      name: "Untitled Residence",
+      units: "meters",
+      walls: [],
+      openings: [],
+      createdAt: timestamp,
+      updatedAt: timestamp,
+    },
+
+    activeTool: "wall",
+    editorMode: "2d",
+    selectedWallId: null,
+
+    setTool: (activeTool) =>
+      set({ activeTool }),
+
+    setEditorMode: (editorMode) =>
+      set({ editorMode }),
+
+    selectWall: (selectedWallId) =>
+      set({ selectedWallId }),
+
+    clearSelection: () =>
+      set({ selectedWallId: null }),
+
+    addWall: (start, end) =>
+      set((state) => {
+        const length = Math.hypot(
+          end.x - start.x,
+          end.y - start.y
+        );
+
+        if (length < 0.1) return state;
+
+        const wall: Wall = {
+          id: crypto.randomUUID(),
+          start,
+          end,
+          thickness: 0.15,
+          height: 2.7,
+        };
+
+        return {
+          plan: {
+            ...state.plan,
+            walls: [...state.plan.walls, wall],
+            updatedAt: new Date().toISOString(),
+          },
+        };
+      }),
+
+    updateWall: (id, changes) =>
+      set((state) => ({
+        plan: {
+          ...state.plan,
+          walls: state.plan.walls.map((wall) =>
+            wall.id === id
+              ? {
+                  ...wall,
+                  ...changes,
+                  id: wall.id,
+                }
+              : wall
+          ),
+          updatedAt: new Date().toISOString(),
+        },
+      })),
+
+    deleteSelectedWall: () =>
+      set((state) => ({
+        plan: {
+          ...state.plan,
+          walls: state.plan.walls.filter(
+            (wall) =>
+              wall.id !== state.selectedWallId
+          ),
+          updatedAt: new Date().toISOString(),
+        },
+        selectedWallId: null,
+      })),
+  }));
