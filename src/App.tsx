@@ -9,7 +9,7 @@ import ComingSoonPage from "./pages/ComingSoonPage";
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/templates/residential-community" element={<ResidentialCommunity />} />
         <Route path="/generator" element={<BuildingGenerator />} />
