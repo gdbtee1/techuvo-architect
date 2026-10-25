@@ -1,0 +1,108 @@
+{
+  "templateId": "RES-002",
+  "name": "The Willow",
+  "subtitle": "Contemporary Courtyard Residence",
+  "category": "residential",
+  "status": "concept",
+  "dimensions": {
+    "width": 14.0,
+    "length": 11.0,
+    "height": 3.25
+  },
+  "bedrooms": 2,
+  "bathrooms": 2,
+  "floors": 1,
+  "units": "meters",
+  "rooms": [
+    {
+      "id": "living",
+      "name": "Open Living",
+      "floor": 1,
+      "type": "living",
+      "bounds": [
+        -7,
+        -5.5,
+        7.5,
+        6.4
+      ]
+    },
+    {
+      "id": "kitchen",
+      "name": "Kitchen",
+      "floor": 1,
+      "type": "kitchen",
+      "bounds": [
+        1,
+        -5.5,
+        6,
+        6.4
+      ]
+    },
+    {
+      "id": "bedroom-1",
+      "name": "Primary Bedroom",
+      "floor": 1,
+      "type": "bedroom",
+      "bounds": [
+        -7,
+        0.9,
+        5.5,
+        4.6
+      ]
+    },
+    {
+      "id": "bedroom-2",
+      "name": "Guest Bedroom",
+      "floor": 1,
+      "type": "bedroom",
+      "bounds": [
+        1.5,
+        0.9,
+        5.5,
+        4.6
+      ]
+    },
+    {
+      "id": "bathroom-core",
+      "name": "Bathroom Core",
+      "floor": 1,
+      "type": "bathroom",
+      "bounds": [
+        -1.5,
+        0.9,
+        3,
+        4.6
+      ]
+    }
+  ],
+  "packs": [
+    {
+      "id": "architecture",
+      "url": "/templates/the-willow/architecture.glb",
+      "componentCount": 49
+    },
+    {
+      "id": "openings",
+      "url": "/templates/the-willow/openings.glb",
+      "componentCount": 31
+    },
+    {
+      "id": "interior",
+      "url": "/templates/the-willow/interior.glb",
+      "componentCount": 24
+    },
+    {
+      "id": "roof",
+      "url": "/templates/the-willow/roof.glb",
+      "componentCount": 2
+    },
+    {
+      "id": "site",
+      "url": "/templates/the-willow/site.glb",
+      "componentCount": 81
+    }
+  ],
+  "walkthroughReady": false,
+  "parametricEditingReady": false,
+  "roofRemovable": true
+}

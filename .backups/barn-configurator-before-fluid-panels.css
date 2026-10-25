@@ -1,0 +1,1313 @@
+/* TECHUVO — ARCHITECTURAL CONFIGURATOR */
+
+.barn-configurator {
+  min-height: 100vh;
+  background: #f4f5ef;
+  color: #263c32;
+  font-family: Inter, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+
+.barn-configurator * {
+  box-sizing: border-box;
+}
+
+.barn-configurator button,
+.barn-configurator input {
+  font: inherit;
+}
+
+.barn-header {
+  min-height: 94px;
+  padding: 20px clamp(22px, 4vw, 72px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border-bottom: 1px solid #dce2d8;
+  background: #fafaf7;
+}
+
+.barn-header-left {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.barn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+  color: #365847;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.barn-header-divider {
+  width: 1px;
+  height: 36px;
+  background: #d7dfd5;
+}
+
+.barn-eyebrow {
+  margin: 0 0 6px;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.23em;
+  text-transform: uppercase;
+  color: #78937d;
+}
+
+.barn-page-title {
+  margin: 0;
+  font-size: clamp(17px, 2vw, 23px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+}
+
+.barn-reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 43px;
+  padding: 0 18px;
+  border: 1px solid #d4ddd1;
+  background: transparent;
+  color: #365747;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.barn-reset:hover {
+  background: #eaf0e7;
+  border-color: #9dac9c;
+}
+
+.barn-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 390px;
+  min-height: calc(100vh - 94px);
+}
+
+.barn-viewer {
+  min-width: 0;
+  position: relative;
+  background: #e8eee7;
+  min-height: 690px;
+  overflow: hidden;
+}
+
+.barn-viewer canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+.barn-viewer-label {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  padding: 17px 20px;
+  border: 1px solid rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(16px);
+  pointer-events: none;
+}
+
+.barn-viewer-label p:first-child {
+  margin: 0 0 7px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: #819786;
+}
+
+.barn-viewer-label p:last-child {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.barn-footprint {
+  position: absolute;
+  bottom: 32px;
+  left: 30px;
+  padding: 17px 24px;
+  background: #29493a;
+  color: white;
+  pointer-events: none;
+}
+
+.barn-footprint-label {
+  margin: 0 0 6px;
+  color: #bbd0c0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.barn-footprint-number {
+  margin: 0;
+  font-size: 27px;
+  font-weight: 650;
+  letter-spacing: -0.05em;
+}
+
+.barn-sidebar {
+  background: #fafaf7;
+  border-left: 1px solid #dce2d8;
+  padding: 40px 31px 50px;
+}
+
+.barn-section-label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #76917d;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.barn-sidebar-title {
+  margin: 24px 0 14px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 43px;
+  font-weight: 400;
+  letter-spacing: -0.055em;
+  line-height: 1.08;
+}
+
+.barn-sidebar-description {
+  margin: 0;
+  color: #78897d;
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.barn-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 38px;
+}
+
+.barn-control-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.barn-control-value {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.barn-range {
+  width: 100%;
+  accent-color: #345943;
+  cursor: pointer;
+}
+
+.barn-finish-section {
+  margin-top: 36px;
+  padding-top: 27px;
+  border-top: 1px solid #dce2d8;
+}
+
+.barn-finish-title {
+  margin: 0 0 17px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.barn-finishes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 11px;
+}
+
+.barn-finish-option {
+  position: relative;
+  border: 1px solid #dce3d9;
+  background: transparent;
+  padding: 9px;
+  text-align: left;
+  color: #31483b;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+}
+
+.barn-finish-option:hover {
+  border-color: #9fac9e;
+}
+
+.barn-finish-option.selected {
+  border-color: #345943;
+  background: #eef3ed;
+}
+
+.barn-finish-swatch {
+  height: 55px;
+  width: 100%;
+  margin-bottom: 11px;
+}
+
+.barn-finish-name {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.barn-finish-check {
+  position: absolute;
+  right: 13px;
+  top: 13px;
+  color: #345943;
+  background: #ffffffdb;
+}
+
+.barn-summary {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid #dce2d8;
+}
+
+.barn-summary-label {
+  color: #829486;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.barn-summary-value {
+  margin: 11px 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 38px;
+  letter-spacing: -0.04em;
+}
+
+.barn-summary-note {
+  color: #849588;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+@media (max-width: 1050px) {
+  .barn-layout {
+    grid-template-columns: minmax(0, 1fr) 325px;
+  }
+
+  .barn-sidebar {
+    padding: 34px 22px;
+  }
+}
+
+@media (max-width: 780px) {
+  .barn-header {
+    padding: 18px 20px;
+    flex-wrap: wrap;
+  }
+
+  .barn-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .barn-viewer {
+    min-height: 460px;
+    height: 56vh;
+    max-height: 650px;
+  }
+
+  .barn-sidebar {
+    border-left: 0;
+    border-top: 1px solid #dce2d8;
+    padding: 35px 24px 50px;
+  }
+
+  .barn-viewer-label {
+    top: 17px;
+    left: 17px;
+    padding: 12px 14px;
+  }
+
+  .barn-footprint {
+    bottom: 17px;
+    left: 17px;
+  }
+
+  .barn-sidebar-title {
+    font-size: 37px;
+  }
+}
+
+@media (max-width: 420px) {
+  .barn-header-divider {
+    display: none;
+  }
+
+  .barn-page-title {
+    font-size: 16px;
+  }
+
+  .barn-viewer {
+    min-height: 370px;
+    height: 47vh;
+  }
+
+  .barn-finishes {
+    gap: 8px;
+  }
+}
+
+
+/* Roof customization */
+.barn-roof-section {
+  margin-top: 36px;
+  padding-top: 27px;
+  border-top: 1px solid #dce2d8;
+}
+.barn-roof-options {
+  display: grid;
+  gap: 10px;
+}
+.barn-roof-option {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  padding: 16px;
+  text-align: left;
+  border: 1px solid #dce3d9;
+  background: transparent;
+  color: #31483b;
+  cursor: pointer;
+}
+.barn-roof-option.selected {
+  background: #edf3ea;
+  border-color: #345943;
+}
+.barn-roof-option-name {
+  font-size: 13px;
+  font-weight: 700;
+}
+.barn-roof-option-note {
+  font-size: 11px;
+  color: #788b7e;
+}
+
+
+/* Door and window customization */
+.barn-openings-section {
+  margin-top: 36px;
+  padding-top: 27px;
+  border-top: 1px solid #dce2d8;
+}
+.barn-opening-label {
+  display: block;
+  margin: 19px 0 9px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.barn-opening-select {
+  display: block;
+  width: 100%;
+  min-height: 45px;
+  border: 1px solid #d2dbd1;
+  background: #fff;
+  color: #31483b;
+  padding: 0 13px;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.barn-opening-select:focus {
+  outline: 2px solid #6b9376;
+  outline-offset: 2px;
+}
+
+
+/* Interactive barn entrance */
+.barn-door-action {
+  margin-top: 36px;
+  padding-top: 27px;
+  border-top: 1px solid #dce2d8;
+}
+
+.barn-door-toggle {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 16px;
+  border: 1px solid #345943;
+  background: #345943;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.barn-door-toggle:hover {
+  background: #243f30;
+}
+
+.barn-door-description {
+  margin: 10px 0 0;
+  color: #819183;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+
+/* Interior exploration controls */
+.barn-interior-action {
+  margin-top: 36px;
+  padding-top: 27px;
+  border-top: 1px solid #dce2d8;
+}
+
+
+/* WALKTHROUGH NAVIGATION */
+.barn-walk-controls {
+  position: absolute;
+  right: 22px;
+  bottom: 25px;
+  z-index: 10;
+  background: rgba(250,250,247,0.94);
+  border: 1px solid #dce2d8;
+  padding: 14px;
+  backdrop-filter: blur(12px);
+}
+
+.barn-walk-title {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 800;
+  color: #59715f;
+  margin-bottom: 10px;
+}
+
+.barn-walk-pad {
+  display: grid;
+  grid-template-columns: repeat(4, 48px);
+  gap: 6px;
+}
+
+.barn-walk-pad button {
+  min-width: 48px;
+  min-height: 48px;
+  border: 1px solid #cbd7cb;
+  background: #e8eee7;
+  color: #29493a;
+  font-size: 23px;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+}
+
+.barn-walk-pad button:active {
+  background: #345943;
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .barn-walk-controls {
+    right: 12px;
+    bottom: 12px;
+    padding: 10px;
+  }
+
+  .barn-walk-pad {
+    grid-template-columns: repeat(4, 42px);
+  }
+
+  .barn-walk-pad button {
+    min-width: 42px;
+    min-height: 42px;
+  }
+}
+
+
+.barn-camera-reset {
+  margin-top: 25px;
+}
+
+.barn-camera-reset .barn-reset {
+  width: 100%;
+}
+
+
+/* Architectural camera toolbar */
+.barn-view-toolbar {
+  position: absolute;
+  top: 30px;
+  right: 25px;
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid rgba(210,220,211,.9);
+  background: rgba(250,250,247,.94);
+  backdrop-filter: blur(12px);
+}
+
+.barn-view-toolbar-group {
+  display: flex;
+  gap: 3px;
+}
+
+.barn-view-toolbar-group button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 7px 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #526a59;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.barn-view-toolbar-group button:hover {
+  background: #eaf0e8;
+}
+
+.barn-view-toolbar-group button.active {
+  border-color: #96ad9a;
+  background: #e4ede2;
+  color: #284c37;
+}
+
+.barn-view-toolbar-divider {
+  height: 1px;
+  background: #dce3d9;
+}
+
+@media (max-width: 600px) {
+  .barn-view-toolbar {
+    top: 12px;
+    right: 12px;
+    padding: 6px;
+  }
+
+  .barn-view-toolbar-group button {
+    min-width: 38px;
+    min-height: 42px;
+    padding: 5px;
+  }
+
+  .barn-view-toolbar-group button span {
+    font-size: 9px;
+  }
+}
+
+/* HORIZONTAL ARCHITECTURAL TOOLKIT */
+
+.design-toolkit {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  padding: 10px;
+  background: #fafaf7;
+  border-bottom: 1px solid #d9e0d6;
+}
+
+.design-toolkit-item {
+  flex: 1 0 115px;
+  min-height: 68px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #617568;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.design-toolkit-item:hover {
+  background: #edf2eb;
+}
+
+.design-toolkit-item.active {
+  border-color: #b6c6b6;
+  background: #e8f0e6;
+  color: #294b38;
+}
+
+@media (max-width: 600px) {
+  .design-toolkit {
+    padding: 7px;
+  }
+
+  .design-toolkit-item {
+    flex-basis: 100px;
+    min-height: 60px;
+    font-size: 10px;
+  }
+}
+
+
+/* ==================================================
+   TOP TOOLKIT + FULL-WIDTH ARCHITECTURAL VIEWER
+   ================================================== */
+
+.barn-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.barn-sidebar {
+  order: 0;
+  width: 100%;
+  border-left: 0;
+  border-bottom: 1px solid #dce2d8;
+  padding: 0;
+  background: #fafaf7;
+}
+
+.barn-viewer {
+  order: 1;
+  width: 100%;
+  height: min(76vh, 850px);
+  min-height: 480px;
+  flex: none;
+}
+
+.barn-sidebar > .design-toolkit {
+  width: 100%;
+}
+
+.barn-sidebar-title,
+.barn-sidebar-description,
+.barn-section-label {
+  display: none;
+}
+
+/* Hide all settings until their tool is selected. */
+
+.barn-sidebar .barn-controls,
+.barn-sidebar .barn-roof-section,
+.barn-sidebar .barn-openings-section,
+.barn-sidebar .barn-finish-section,
+.barn-sidebar .barn-interior-action,
+.barn-sidebar .barn-door-action,
+.barn-sidebar .barn-camera-reset,
+.barn-sidebar .barn-summary {
+  display: none;
+}
+
+/* Dimensions */
+
+.barn-sidebar[data-tool="dimensions"] .barn-controls,
+.barn-sidebar[data-tool="dimensions"] .barn-summary {
+  display: flex;
+}
+
+/* Roof */
+
+.barn-sidebar[data-tool="roof"] .barn-roof-section {
+  display: block;
+}
+
+/* Doors and windows */
+
+.barn-sidebar[data-tool="openings"] .barn-openings-section {
+  display: block;
+}
+
+/* Exterior materials */
+
+.barn-sidebar[data-tool="materials"] .barn-finish-section {
+  display: block;
+}
+
+/* Interior exploration */
+
+.barn-sidebar[data-tool="explore"] .barn-interior-action,
+.barn-sidebar[data-tool="explore"] .barn-door-action,
+.barn-sidebar[data-tool="explore"] .barn-camera-reset {
+  display: block;
+}
+
+/* Compact horizontal dimension controls */
+
+.barn-sidebar[data-tool="dimensions"] .barn-controls {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin: 0;
+  padding: 19px 30px;
+  align-items: center;
+}
+
+.barn-sidebar[data-tool="dimensions"] .barn-controls > div {
+  flex: 1 1 180px;
+  min-width: 160px;
+}
+
+.barn-sidebar[data-tool="dimensions"] .barn-summary {
+  margin: 0;
+  padding: 15px 30px;
+  border-top: 1px solid #e2e7df;
+  flex-direction: column;
+}
+
+.barn-summary-value {
+  font-size: 28px;
+}
+
+/* Shared tool settings panels */
+
+.barn-roof-section,
+.barn-openings-section,
+.barn-finish-section,
+.barn-interior-action,
+.barn-door-action,
+.barn-camera-reset {
+  margin: 0 !important;
+  padding: 20px 30px !important;
+  border-top: 0 !important;
+}
+
+.barn-roof-options {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 740px;
+}
+
+.barn-finishes {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  max-width: 800px;
+}
+
+.barn-openings-section {
+  max-width: 900px;
+}
+
+.barn-openings-section .barn-opening-select {
+  max-width: 400px;
+}
+
+.barn-interior-action .barn-door-toggle,
+.barn-door-action .barn-door-toggle {
+  max-width: 360px;
+}
+
+.barn-camera-reset .barn-reset {
+  max-width: 360px;
+}
+
+@media (max-width: 780px) {
+  .barn-layout {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .barn-viewer {
+    height: 58vh;
+    min-height: 390px;
+    max-height: 650px;
+  }
+
+  .barn-sidebar[data-tool="dimensions"] .barn-controls {
+    gap: 17px;
+    padding: 18px;
+  }
+
+  .barn-roof-section,
+  .barn-openings-section,
+  .barn-finish-section,
+  .barn-interior-action,
+  .barn-door-action,
+  .barn-camera-reset {
+    padding: 17px 18px !important;
+  }
+
+  .barn-finishes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .barn-viewer {
+    min-height: 340px;
+    height: 48vh;
+  }
+
+  .barn-roof-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =============================================
+   TECHUVO ARCHITECT — PRECISION TOOLKIT V2
+   ============================================= */
+
+.barn-configurator {
+  --dock-ink: #28343e;
+  --dock-muted: #7c8791;
+  --dock-blue: #346bd1;
+  --dock-border: #e4e9ed;
+  --dock-panel: #ffffff;
+  background: #eef1f2;
+}
+
+/* Compact studio header */
+.barn-header {
+  min-height: 68px;
+  padding: 12px clamp(18px, 3vw, 42px);
+  background: #fcfdfd;
+  border-bottom: 1px solid var(--dock-border);
+}
+
+.barn-page-title {
+  color: var(--dock-ink);
+  font-size: 16px;
+  letter-spacing: -0.025em;
+}
+
+.barn-eyebrow {
+  color: #75889b;
+  font-size: 9px;
+}
+
+/* Toolkit sits above the viewport */
+.barn-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100dvh - 68px);
+  gap: 0;
+}
+
+.barn-sidebar {
+  order: 0;
+  width: 100%;
+  flex: none;
+  padding: 0;
+  border: 0;
+  background: #f5f7f8;
+}
+
+/* Floating compact dock */
+.architect-dock-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 13px 18px 10px;
+}
+
+.barn-sidebar .architect-dock {
+  width: max-content;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 5px;
+  border: 1px solid rgba(207, 217, 225, .8);
+  border-radius: 17px;
+  background: rgba(255,255,255,.96);
+  box-shadow:
+    0 2px 5px rgba(27,42,55,.035),
+    0 12px 35px rgba(27,42,55,.075);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.architect-dock::-webkit-scrollbar {
+  display: none;
+}
+
+.barn-sidebar .design-toolkit-item {
+  flex: 0 0 auto;
+  min-width: 94px;
+  min-height: 54px;
+  padding: 7px 11px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  color: #77838d;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  transition:
+    background .25s ease,
+    color .25s ease,
+    box-shadow .25s ease,
+    transform .25s ease;
+}
+
+.barn-sidebar .design-toolkit-item:hover {
+  background: #f0f4f7;
+  color: #344756;
+}
+
+.barn-sidebar .design-toolkit-item.active {
+  background: #ebf1fc;
+  border-color: #dbe6fa;
+  color: #315fc1;
+  box-shadow: inset 0 0 0 .5px rgba(52,107,209,.08);
+}
+
+.architect-dock-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .28s ease;
+}
+
+.design-toolkit-item.active .architect-dock-icon {
+  transform: scale(1.07);
+}
+
+.architect-dock-label {
+  white-space: nowrap;
+}
+
+/* Context panel: selection unfolds smoothly */
+.barn-sidebar .barn-controls,
+.barn-sidebar .barn-roof-section,
+.barn-sidebar .barn-openings-section,
+.barn-sidebar .barn-finish-section,
+.barn-sidebar .barn-summary,
+.barn-sidebar .barn-interior-action,
+.barn-sidebar .barn-door-action,
+.barn-sidebar .barn-camera-reset {
+  animation: architectPanelReveal .32s
+    cubic-bezier(.22, 1, .36, 1) both;
+}
+
+@keyframes architectPanelReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(.99);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Selected properties appear in a restrained panel */
+.barn-sidebar[data-tool="dimensions"] .barn-controls,
+.barn-sidebar[data-tool="roof"] .barn-roof-section,
+.barn-sidebar[data-tool="openings"] .barn-openings-section,
+.barn-sidebar[data-tool="materials"] .barn-finish-section {
+  width: min(100% - 36px, 1060px);
+  margin: 0 auto 12px !important;
+  padding: 16px 22px !important;
+  border: 1px solid var(--dock-border) !important;
+  border-radius: 15px;
+  background: var(--dock-panel);
+  box-shadow: 0 6px 22px rgba(28,45,57,.035);
+}
+
+/* Dimensions: compact horizontal controls */
+.barn-sidebar[data-tool="dimensions"] .barn-controls {
+  gap: 22px;
+  align-items: center;
+}
+
+.barn-control-heading {
+  font-size: 11px;
+  color: #435260;
+}
+
+.barn-control-value {
+  color: #315fc1;
+  font-variant-numeric: tabular-nums;
+}
+
+.barn-range {
+  accent-color: var(--dock-blue);
+}
+
+/* Avoid oversized summaries */
+.barn-sidebar[data-tool="dimensions"] .barn-summary {
+  width: min(100% - 36px, 1060px);
+  margin: -5px auto 11px;
+  padding: 4px 12px !important;
+  align-items: flex-start;
+}
+
+.barn-summary-value {
+  font-size: 25px;
+  color: #273844;
+}
+
+/* Tool choices feel like precise software controls */
+.barn-roof-options {
+  gap: 9px;
+}
+
+.barn-roof-option,
+.barn-finish-option {
+  border-radius: 10px;
+  transition:
+    background .22s ease,
+    border-color .22s ease,
+    transform .22s ease;
+}
+
+.barn-roof-option:hover,
+.barn-finish-option:hover {
+  transform: translateY(-1px);
+}
+
+.barn-roof-option.selected,
+.barn-finish-option.selected {
+  background: #eef4ff;
+  border-color: #7da2e5;
+}
+
+.barn-opening-select {
+  border-radius: 9px;
+  background: #f9fafb;
+  border-color: #dce3e9;
+}
+
+.barn-finish-swatch {
+  border-radius: 6px;
+}
+
+/* Explore controls should also look native */
+.barn-sidebar[data-tool="explore"] .barn-interior-action,
+.barn-sidebar[data-tool="explore"] .barn-door-action,
+.barn-sidebar[data-tool="explore"] .barn-camera-reset {
+  width: min(100% - 36px, 1060px);
+  margin: 0 auto !important;
+  padding: 11px 18px !important;
+  background: #fff;
+}
+
+.barn-door-toggle {
+  border-radius: 9px;
+  background: #345e8e;
+  border-color: #345e8e;
+}
+
+.barn-door-toggle:hover {
+  background: #284c73;
+}
+
+/* The building owns most of the screen */
+.barn-viewer {
+  order: 1;
+  flex: 1 0 auto;
+  height: calc(100dvh - 180px);
+  min-height: 470px;
+  max-height: none;
+  width: 100%;
+  background: #e9eef0;
+  border-top: 1px solid #e1e6e9;
+}
+
+/* Camera buttons */
+.barn-view-toolbar {
+  border-radius: 14px;
+  box-shadow: 0 6px 24px rgba(29,44,56,.08);
+}
+
+.barn-view-toolbar-group button {
+  border-radius: 8px;
+}
+
+.barn-view-toolbar-group button.active {
+  background: #e8f0fe;
+  color: #315fc1;
+  border-color: #c7d9f8;
+}
+
+@media (max-width: 780px) {
+  .architect-dock-wrap {
+    justify-content: flex-start;
+    padding: 9px 10px;
+  }
+
+  .barn-sidebar .architect-dock {
+    margin: 0 auto;
+  }
+
+  .barn-sidebar .design-toolkit-item {
+    min-width: 78px;
+    min-height: 48px;
+    padding: 6px 8px;
+    gap: 5px;
+    font-size: 10px;
+  }
+
+  .barn-sidebar[data-tool="dimensions"] .barn-controls,
+  .barn-sidebar[data-tool="roof"] .barn-roof-section,
+  .barn-sidebar[data-tool="openings"] .barn-openings-section,
+  .barn-sidebar[data-tool="materials"] .barn-finish-section {
+    width: calc(100% - 20px);
+    margin-bottom: 9px !important;
+    padding: 14px !important;
+  }
+
+  .barn-viewer {
+    height: 56dvh;
+    min-height: 390px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .barn-sidebar .barn-controls,
+  .barn-sidebar .barn-roof-section,
+  .barn-sidebar .barn-openings-section,
+  .barn-sidebar .barn-finish-section,
+  .barn-sidebar .barn-summary,
+  .barn-sidebar .barn-interior-action,
+  .barn-sidebar .barn-door-action,
+  .barn-sidebar .barn-camera-reset {
+    animation: none;
+  }
+
+  .design-toolkit-item,
+  .architect-dock-icon {
+    transition: none !important;
+  }
+}
+
+/* ============================================
+   COMPACT WORKSPACE — VIEWPORT FIRST
+   ============================================ */
+
+/* Keep the toolkit close to its contextual tools */
+.architect-dock-wrap {
+  padding-top: 10px;
+  padding-bottom: 9px;
+}
+
+/* Smaller and more purposeful dimensions panel */
+.barn-sidebar[data-tool="dimensions"] .barn-controls {
+  padding: 13px 20px !important;
+  gap: 18px;
+  margin-bottom: 5px !important;
+  box-shadow: 0 3px 14px rgba(30,45,60,.025);
+}
+
+.barn-sidebar[data-tool="dimensions"] .barn-controls > div {
+  min-width: 165px;
+}
+
+.barn-control-heading {
+  margin-bottom: 8px;
+}
+
+/* Replace oversized floor area section with info strip */
+.barn-sidebar[data-tool="dimensions"] .barn-summary {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 9px 17px;
+  width: min(100% - 36px, 1060px);
+  margin: 0 auto 10px !important;
+  padding: 7px 12px !important;
+  border: none;
+  background: transparent;
+}
+
+.barn-summary-label {
+  font-size: 10px;
+  letter-spacing: .1em;
+  white-space: nowrap;
+  color: #70818e;
+}
+
+.barn-summary-value {
+  margin: 0;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 720;
+  letter-spacing: -0.035em;
+  color: #2a4357;
+  white-space: nowrap;
+}
+
+.barn-summary-note {
+  margin: 0 0 0 auto;
+  max-width: 590px;
+  font-size: 10px;
+  line-height: 1.5;
+  color: #83919b;
+}
+
+/* Make the actual 3D model more prominent */
+.barn-viewer {
+  height: calc(100dvh - 245px);
+  min-height: 530px;
+  border-top: 1px solid #dce4e7;
+}
+
+.barn-viewer-label {
+  top: 17px;
+  left: 18px;
+  padding: 11px 14px;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(33,50,65,.055);
+}
+
+.barn-view-toolbar {
+  top: 17px;
+  right: 18px;
+}
+
+/* Controls stay readable on smaller screens */
+@media (max-width: 780px) {
+  .barn-sidebar[data-tool="dimensions"] .barn-controls {
+    padding: 13px !important;
+    gap: 13px;
+  }
+
+  .barn-sidebar[data-tool="dimensions"] .barn-summary {
+    width: calc(100% - 20px);
+    padding: 8px 4px !important;
+  }
+
+  .barn-summary-note {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+
+  .barn-viewer {
+    height: 55dvh;
+    min-height: 360px;
+  }
+}
+
