@@ -1,0 +1,10 @@
+[
+  {
+    "id": "polyhaven:aerial_asphalt_01",
+    "name": "Aerial Asphalt 01",
+    "provider": "Poly Haven",
+    "color": "material-library/online/aerial_asphalt_01/color.jpg",
+    "normal": "material-library/online/aerial_asphalt_01/normal.jpg",
+    "roughness": "material-library/online/aerial_asphalt_01/roughness.jpg"
+  }
+]
